@@ -1,32 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eat-Da-Burger</title>
+  <title>New York Times Scraper</title>
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <!-- Latest compiled and minified Font Awesome CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <!-- Latest compiled and minified Bootsprap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="./../../public/assets/css/main.css">
 
 </head>
-<body>
 
-  <div class="container">
-    <div class="jumbotron">
-      <img src="assets/img/burger.png" class="img-responsive" alt="Hamburger" id="hamburger-image">
-      <h1 class="text-center"> Eat-Da-Burger!</h1>
-      <hr>
-      <h2 class="text-center">Welcome to your burger wishlist!</h2>
-      <br>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./">
+          <i class="far fa-newspaper"></i>
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="./">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./saved-articles">Saved Articles</a>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left">
+          <button class="btn btn-danger">Scrape New Articles</button>
+        </form>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+  <header class="parallax-bg bg1">
+    <div class="jumbotron page-banner">
+      <div class="container-fluid">
+        <!-- <img src="./../../public/assets/img/news-page.jpg" class="img-responsive" alt="News Page" id="banner"> -->
+        <h1 class="text-center custom-title">MONGO SCRAPER</h1>
+        <h2 class="text-center custom-title">New York Times Articles</h2>
+        <br>
+      </div>
+    </div>
+  </header>
+
+  <section class="container-fluid">
+    {{{body}}} 
+  </section>
+  {{!-- Modal --}}
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Notes</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
   </div>
+</div> {{!-- End Modal --}}
 
-  <section class="container">
-    {{{body}}}
-  </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="assets/js/burger.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
+
 </html>

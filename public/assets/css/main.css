@@ -1,12 +1,27 @@
-#hamburger-image{
-  max-height: 150px;
-  margin: 0 auto;
+body {
+  padding-top: 50px;
 }
-li > button{
-  float: right;
-  margin-left: 3px;
+.jumbotron{
+  background: rgba(0, 0, 0, 0.219);
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  /* position: absolute; */
 }
-li > img{
-  margin-right: 5px;
-  height: 16px;
+.navbar{
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.parallax-bg {
+  position: relative;
+  opacity: 0.9;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg1{
+  background-image: url("./../img/news-page.jpg");
+  min-height: 50%;
 }

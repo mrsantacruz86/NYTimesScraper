@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mongoose');
 
 var config;
 if(process.env.JAWSDB_URL){
@@ -14,15 +14,5 @@ if(process.env.JAWSDB_URL){
     database: process.env.MYSQL_DATABASE_DEVELOPMENT
   }
 }
-
-var conn = mysql.createConnection(config);
-
-conn.connect((err) => {
-  if (err) {
-    console.error(`Error connecting to MySQL: ${err.stack}`);
-    return;
-  }
-  console.log(`Succesfully connected:  Thread id: ${conn.threadId}`);
-});
 
 module.exports = conn;
