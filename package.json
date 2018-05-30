@@ -1,0 +1,33 @@
+{
+  "name": "nytimes-scraper",
+  "version": "1.0.0",
+  "description": "This app is a burger preferences log that keeps a wishlist of burgers and allows the user to check when one has been tasted.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrsantacruz86/burger-app.git"
+  },
+  "keywords": [
+    "express",
+    "handlebars",
+    "mysql"
+  ],
+  "author": "Nelson Diaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrsantacruz86/burger-app/issues"
+  },
+  "homepage": "https://github.com/mrsantacruz86/burger-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.1.3",
+    "request": "^2.87.0"
+  }
+}

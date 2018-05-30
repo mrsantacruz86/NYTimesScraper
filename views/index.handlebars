@@ -1,0 +1,59 @@
+<div class="row">
+
+	<div class="col-sm-6 col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Burgers that are not Devoured!</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					{{#each burgers}}
+						{{#unless devoured}}
+							{{> burgers/burger-list devoured=false}}
+						{{/unless}}
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Burgers that are Devoured!</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					{{#each burgers}}
+						{{#if devoured}}
+							{{> burgers/burger-list devoured=true}}
+						{{/if}}
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{{!-- Form that adds the new burgers --}}
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Add New burger</h3>
+			</div>
+			<div class="panel-body">
+				<form class="create-form" >
+
+					<div class="form-group">
+						<label for="burgerInput">Burger Name:</label>
+						<input type="text" class="form-control" id="burgerInput" name="burgerInput">
+					</div>
+
+					<button type="submit" class="btn btn-default">Add burger</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
