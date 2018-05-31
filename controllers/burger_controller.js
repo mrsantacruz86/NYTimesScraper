@@ -1,8 +1,7 @@
-var express  = require("express");
+import  express from 'express';
+const router = express.Router();
 
-var router = express.Router();
-
-var burger = require("../models/burger");
+import db  from '../models';
 
 // Create all our routes and set up logic within those routes where required.
 

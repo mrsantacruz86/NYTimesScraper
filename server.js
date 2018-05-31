@@ -1,15 +1,13 @@
-require("dotenv").config();
 import express from 'express';
 import bodyParser from 'body-parser';
 //Display server messages to the console.
-import logger from 'logger';
+import logger from 'morgan';
 
 var PORT = process.env.PORT || 8080;
 
 var app = express();
 app.use(logger('dev'));
-
-// Serve static content for the app from the "public" directory in the application directory.
+//Public Folder
 app.use(express.static("public"));
 
 // parse application/x-www-form-urlencoded
