@@ -1,18 +1,13 @@
-const mysql = require('mongoose');
+import mongoose from 'mongoose';
 
-var config;
-if(process.env.JAWSDB_URL){
-  // Production Database Configuration
-  config = process.env.JAWSDB_URL;
-} else{
-  // Develoment Database Configuration
-  config = {
-    host: process.env.MYSQL_HOST_DEVELOPMENT,
-    port: process.env.MYSQL_PORT_DEVELOPMENT,
-    user: process.env.MYSQL_USER_DEVELOPMENT,
-    password: process.env.MYSQL_PASSWORD_DEVELOPMENT,
-    database: process.env.MYSQL_DATABASE_DEVELOPMENT
-  }
-}
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
+mongoose.Promise = Promise;
+// Connect to the Mongo DB
+mongoose.connect(MONGODB_URI);
+
+
 
 module.exports = conn;
