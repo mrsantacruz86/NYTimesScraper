@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
-const express =  require('express');
+const express = require('express');
+const mongoose = require('mongoose');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers/routes');
@@ -11,6 +12,11 @@ app.use(logger('dev'));
 
 //Public Folder
 app.use(express.static("public"));
+
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));

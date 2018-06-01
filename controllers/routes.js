@@ -3,9 +3,6 @@ const router = express.Router();
 
 const db = require('../models');
 
-// Create all our routes and set up logic within those routes where required.
-
-//CRUD Methods
 var testData = {
 	articles: [
 	{
@@ -21,9 +18,31 @@ var testData = {
 		link: "www.github.com"
 	}]
 };
+// When the server starts, create and save a new Article document to the db
+testData.articles.forEach( element => {
+	db.Article.create(element)
+		.then(function (data) {
+			// If saved successfully, print the new Library document to the console
+			console.log(data);
+		})
+		.catch(function (err) {
+			console.log(err.message);
+		});
+});
+
+// Create all our routes and set up logic within those routes where required.
+
+//CRUD Methods
 
 router.get("/", function (req, res) {
-	res.render("index", testData);
+	db.Article.find({})
+	.then(data => {
+		res.render("index", data);
+		console.log(data);
+	})
+	.catch(function (err) {
+		console.log(err.message);
+	});
 });
 
 // Create method
