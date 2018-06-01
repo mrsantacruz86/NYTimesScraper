@@ -1,34 +1,43 @@
-import  express from 'express';
+const express = require('express');
 const router = express.Router();
 
-import db  from '../models';
+const db = require('../models');
 
 // Create all our routes and set up logic within those routes where required.
 
 //CRUD Methods
+var testData = {
+	articles: [
+	{
+		title: "This is a test article # 1",
+		link: "www.google.com"
+	},
+	{
+		title: "This is a test article # 2",
+		link: "www.instagram.com"
+	},
+	{
+		title: "This is a test article # 3",
+		link: "www.github.com"
+	}]
+};
 
 router.get("/", function (req, res) {
-	burger.all(function (data) {
-		var burgerData = {
-			burgers: data
-		};
-		// console.log(burgerData);
-		res.render("index", burgerData);
-	});
+	res.render("index", testData);
 });
 
 // Create method
-router.post("/api/burgers", function (req, res) {
+router.post("/api/articles", function (req, res) {
 	burger.create(["burger_name"], [req.body.name], function (result) {
-			// Send back the ID of the new burger
-			console.log(req.body);
-			res.json({ id: result.insertId });
-		});
+		// Send back the ID of the new burger
+		console.log(req.body);
+		res.json({ id: result.insertId });
+	});
 });
 
 // Uptade some feature
 router.put("/api/burgers/:id", function (req, res) {
-	var condition = {"id": req.params.id};
+	var condition = { "id": req.params.id };
 	// console.log("condition", condition);
 	burger.update({
 		devoured: req.body.devoured
@@ -44,7 +53,7 @@ router.put("/api/burgers/:id", function (req, res) {
 
 // Delete record
 router.delete("/api/burgers/:id", function (req, res) {
-	var condition = {"id": req.params.id};
+	var condition = { "id": req.params.id };
 
 	burger.delete(condition, function (result) {
 		if (result.affectedRows == 0) {

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
@@ -16,7 +16,7 @@ var ArticleSchema = new Schema({
   }
 });
 
-var Aricle = mongoose.model("Article", ArticleSchema);
+var Article = mongoose.model("Article", ArticleSchema);
 
 // Export the database functions for the controller
 module.exports = Article;
