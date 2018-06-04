@@ -1,25 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const scrapeArticles = require('./scraper');
 
 const db = require('../models');
-
-var testData = {
-	articles: [
-	{
-		title: "This is a test article # 1",
-		link: "www.google.com"
-	},
-	{
-		title: "This is a test article # 2",
-		link: "www.instagram.com"
-	},
-	{
-		title: "This is a test article # 3",
-		link: "www.github.com"
-	}]
-};
+var testData = scrapeArticles();
+// var testData = {
+// 	articles: [
+// 	{
+// 		title: "This is a test article # 1",
+// 		link: "www.google.com"
+// 	},
+// 	{
+// 		title: "This is a test article # 2",
+// 		link: "www.instagram.com"
+// 	},
+// 	{
+// 		title: "This is a test article # 3",
+// 		link: "www.github.com"
+// 	}]
+// };
 // When the server starts, create and save a new Article document to the db
-testData.articles.forEach( element => {
+testData.forEach( element => {
 	db.Article.create(element)
 		.then(function (data) {
 			// If saved successfully, print the new Library document to the console
