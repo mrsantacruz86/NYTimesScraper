@@ -3,23 +3,12 @@ const router = express.Router();
 const scrapeArticles = require('../utils/scraper');
 
 const db = require('../models');
-// var testData = {
-// 	articles: [
-// 	{
-// 		title: "This is a test article # 1",
-// 		link: "www.google.com"
-// 	},
-// 	{
-// 		title: "This is a test article # 2",
-// 		link: "www.instagram.com"
-// 	},
-// 	{
-// 		title: "This is a test article # 3",
-// 		link: "www.github.com"
-// 	}]
-// };
-// When the server starts, create and save a new Article document to the db
-// testData.forEach( element => {
+
+// Code used to populate the database with some dummy data
+//-------------------------------------------------------------
+const articlesData = require("../utils/dummyData");
+// // When the server starts, create and save a new Article document to the db
+// articlesData.articles.forEach( element => {
 // 	db.Article.create(element)
 // 		.then(function (data) {
 // 			// If saved successfully, print the new Library document to the console
@@ -29,20 +18,17 @@ const db = require('../models');
 // 			console.log(err.message);
 // 		});
 // });
+//-------------------------------------------------------------
+
 
 // Create all our routes and set up logic within those routes where required.
 
 //CRUD Methods
 
 router.get("/", function (req, res) {
-	db.Article.find({})
-	.then(data => {
-		res.render("index", {data});
-		console.log(data);
-	})
-	.catch(function (err) {
-		console.log(err.message);
-	});
+	
+	res.render("index", articlesData);
+	console.log(articlesData);
 });
 
 router.get("/scrape", function (req, res) {
@@ -50,13 +36,21 @@ router.get("/scrape", function (req, res) {
 });
 
 // // Create method
-// router.post("/api/articles", function (req, res) {
-// 	burger.create(["burger_name"], [req.body.name], function (result) {
-// 		// Send back the ID of the new burger
-// 		console.log(req.body);
-// 		res.json({ id: result.insertId });
-// 	});
-// });
+router.post("/articles/add", function (req, res) {
+	var article = {
+		title: req.body.title,
+		link: req.body.link,
+		summary: req.body.summary
+	}
+	db.Article.create(article)
+		.then(function (data) {
+			// If saved successfully, print the new Library document to the console
+			console.log(data);
+		})
+		.catch(function (err) {
+			console.log(err.message);
+		});
+});
 
 // // Uptade some feature
 // router.put("/api/burgers/:id", function (req, res) {

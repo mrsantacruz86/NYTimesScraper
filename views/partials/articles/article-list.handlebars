@@ -1,6 +1,10 @@
 <li class="list-group-item">
-	<h5>{{title}}	</h5>	
-	<p><a href="{{link}}">{{link}}</a>  </p>
-	{{!-- <button ctype="button" class="btn btn-xs btn-primary devour-burger" data-id="{{_id}}" devoured="{{devoured}}">DEVOUR!</button>
-	<button class="btn btn-xs btn-danger delete-burger" data-id="{{this.id}}">DELETE!</button> --}}
+		<button ctype="button" class="btn btn-sm btn-success article-btns" data-id="{{_id}}" devoured="{{devoured}}">Save Article</button>
+	<a class="article-link" href="{{link}}" target="_blank">
+		<h4 class="list-group-item-heading">{{title}} </h4>
+	</a>
+		<p class="article-summary list-group-item-text">{{summary}}</p>
+
 </li>
+{{!--
+<button class="btn btn-xs btn-danger delete-burger" data-id="{{this.id}}">DELETE!</button> --}}
