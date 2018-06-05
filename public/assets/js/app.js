@@ -1,22 +1,9 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-	$(".devour-burger").on("click", function (event) {
-		var id = parseInt($(this).attr("data-id"));
-		// var devoured = $(this).attr("devoured");
-		var devoured;
-		var newState = {
-			devoured: true
-		}
-
+	$("#scrape-articles").on("click", (event) => {
 		// Send the PUT request.
-		$.ajax("/api/burgers/" + id, {
-			type: "PUT",
-			data: newState
-		}).then(
-			function () {
-				console.log("changed devoured to", devoured);
-				// Reload the page to get the updated list
-				location.reload();
+		$.get("/scrape",(data) => {
+				console.log(data);
 			}
 		);
 	});
