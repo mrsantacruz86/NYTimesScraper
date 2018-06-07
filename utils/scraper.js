@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports = function () {
+function scraper() {
 	// First, we grab the body of the html with request
 	// The url of the page that we are going to scrape
 	var url = 'http://www.miamiherald.com/news/';
@@ -23,5 +23,6 @@ module.exports = function () {
 		return articleList;
 	});
 }
+module.exports = scraper();
 
 
