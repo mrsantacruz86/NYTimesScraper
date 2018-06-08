@@ -5,11 +5,19 @@ const scrapeArticles = require('../utils/scraper');
 const db = require('../models');
 
 // const articlesData = require("../utils/dummyData");
-var articlesData = [];
+// var articlesData = [];
 
 router.get("/", function (req, res) {
-	res.render("index", articlesData);
+	db.Article.find({saved: false})
+		.then(function(articlesData){
+			res.render("index", {articles :articlesData});
+		})
+		.catch(function (err) {
+			// If an error occurred, send it to the client
+			res.send(err);
+		});
 });
+
 
 //Scrape the articles from Miami Herald
 router.get("/scrape", function (req, res) {
