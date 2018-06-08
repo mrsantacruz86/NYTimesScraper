@@ -4,19 +4,20 @@ const scrapeArticles = require('../utils/scraper');
 
 const db = require('../models');
 
-const articlesData = require("../utils/dummyData");
+// const articlesData = require("../utils/dummyData");
+var articlesData = [];
 
 router.get("/", function (req, res) {
 	res.render("index", articlesData);
 });
 
+//Scrape the articles from Miami Herald
 router.get("/scrape", function (req, res) {
-	scrapeArticles(function(data){
+	scrapeArticles((data) => {
 		res.send(data);
-	})
+	});
 });
 
-// Create all our routes and set up logic within those routes where required.
 //CRUD Methods
 
 // // Create method
