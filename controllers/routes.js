@@ -7,13 +7,13 @@ const db = require('../models');
 const articlesData = require("../utils/dummyData");
 
 router.get("/", function (req, res) {
-
 	res.render("index", articlesData);
-	// console.log(articlesData);
 });
 
 router.get("/scrape", function (req, res) {
-	res.json(scrapeArticles);
+	scrapeArticles(function(data){
+		res.send(data);
+	})
 });
 
 // Create all our routes and set up logic within those routes where required.

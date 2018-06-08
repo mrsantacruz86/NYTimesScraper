@@ -1,28 +1,32 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-function scraper() {
-	// First, we grab the body of the html with request
-	// The url of the page that we are going to scrape
+function scrapeArticles(cb) {
 	var url = 'http://www.miamiherald.com/news/';
-	var articleList = [];
-	axios.get(url).then(function (response) {
-		// Then, we load that into cheerio and save it to $
-		var $ = cheerio.load(response.data);
+	axios.get(url)
+		.then(function (response) {
+			var articleList = [];
+			// Then, we load that into cheerio and save it to $
+			var $ = cheerio.load(response.data);
+			// var art = $('#story-list .teaser').find('h4.title').text();
 
-		$('#trending > article').each((i, element) => {
-			// console.log(element);
-			var article = {};
-			article.title = $(this).find('h2.title > a').text();
-			article.link = $(this).find('h2.title > a').attr('href');
-			article.summary = $(this).find('p.summary').text();
 
-			articleList.push(article);
-		});
-		// console.log(articleList);
-		return articleList;
-	});
+			$('#story-list .teaser').each(function (i, element) {
+				// console.log(element);
+				var article = {
+					title: $(this).find('h4 > a').html().trim(),
+					link: $(this).find('a').attr('href').trim(),
+					summary: $(this).find('p.summary').html().trim()
+				}
+				articleList.push(article);
+			});
+			console.log(JSON.stringify(articleList, null, 2));
+			cb(articleList);
+
+		})
+		.catch(error => console.log(error));
 }
-module.exports = scraper();
+
+module.exports = scrapeArticles;
 
 
