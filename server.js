@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
-const routes = require('./controllers/routes');
+const routes = require('./config/routes');
 
 var PORT = process.env.PORT || 8080;
 //create an express server
