@@ -1,30 +1,31 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
-$(function () {
-	$("#btn-scrape").click(function() {
-		$.get("/scrape",function(data){
-			console.log(data);
-			alert("scraped");
-			}
-		);
+$(document).ready(function () {
+	// $(document).on("click", ".btn.btn-save", handleArticleSave);
+	$('#btn-scrape').on("click", function(e){
+		e.preventDefault();
+		handleArticleScrape();
+		console.log("I've beem clicked")
 	});
-	
 });
 
-// $('ul li').on("click", "#btn-save", () => {
-// 	let article = {
-// 		title: req.body.title,
-// 		link: req.body.link,
-// 		summary: req.body.summary
-// 	}
+function handleArticleSave() {
+	$.ajax({
+		method: "PUT",
+		url: "/api/save-article",
+		data: { _id: $(this).attr('data-id') }
+	}).then(function (data) {
+		if (data.ok) {
+			console.log(data);
+			$(this).parents('li').remove();
+		}
+	});
+}
 
-// 	$.ajax("/articles/add", {
-// 		type: "POST",
-// 		data: article
-// 	}).then(
-// 		function () {
-// 			console.log("Created new burger\n", newBurger);
-// 			// Reload the page to get the updated list
-// 			location.reload();
-// 		}
-// 	);
-// });
+function handleArticleScrape() {
+// 	// This function handles the user clicking any "scrape new article" buttons
+	$.get({
+		url: "/api/scrape"
+	}).then(
+		alert("articles already scraped")
+	)
+}
