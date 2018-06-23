@@ -7,6 +7,11 @@ var ArticleSchema = new Schema({
     required: true,
     unique: true
   },
+
+  date: { 
+    type: Date, 
+    default: Date.now 
+  },
   
   link: {
     type: String,
@@ -14,12 +19,8 @@ var ArticleSchema = new Schema({
   },
 
   summary: {
-    type: String
-  },
-  
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Note"
+    type: String,
+    required: true
   },
   saved: {
     type: Boolean,
