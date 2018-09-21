@@ -30,12 +30,12 @@ class Navbar extends Component {
 
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul className="nav navbar-nav">
-								<li className="active">
+								<li className={window.location.pathname === "/" ? "nav-item active" : "nav-item"}>
 									<a href="/">Home
               <span className="sr-only">(current)</span>
 									</a>
 								</li>
-								<li>
+								<li className={window.location.pathname === "/saved" ? "nav-item active" : "nav-item"}>
 									<a href="/saved">Saved Articles</a>
 								</li>
 								<li>
