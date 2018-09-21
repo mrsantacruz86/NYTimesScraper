@@ -22,7 +22,8 @@ body {
   background-size: cover;
 }
 .bg1{
-  background-image: url("./../img/news-page.jpg");
+  /* background-image: url("%PUBLIC_URL%/assets/img/news-page.jpg"); */
+  background-color: aqua;
   min-height: 50%;
 }
 .btn-save{
