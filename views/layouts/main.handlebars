@@ -42,12 +42,15 @@
             </a>
           </li>
           <li>
-            <a href="./saved">Saved Articles</a>
+            <a href="/saved">Saved Articles</a>
+          </li>
+          <li>
+            <button class="btn btn-danger" id="btn-scrape">Scrape New Articles</button>
           </li>
         </ul>
-        <form class="navbar-form navbar-left">
-          <button class="btn btn-danger" id="btn-scrape">Scrape New Articles</button>
-        </form>
+
+        {{!-- <form class="navbar-form navbar-left"> --}}
+        {{!-- </form> --}}
       </div>
       <!-- /.navbar-collapse -->
     </div>
@@ -64,16 +67,16 @@
       </div>
     </div>
   </header>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>{{!-- Bootstrap Scripts --}}
 
   <section class="container-fluid">
-    {{{body}}} 
+    {{{body}}}
   </section>
 
-  <!-- Latest compiled and minified JavaScript -->
+  {{!-- Latest compiled and minified JavaScript --}}
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/library.js"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ module.exports = {
 	create: (data, cb) => {
 		let newNote = {
 			_articleId: data._id,
+			date: new Date(),
 			text: data.text,
 		};
 			Note.create( newNote, (err, doc) => {

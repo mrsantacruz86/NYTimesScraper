@@ -2,11 +2,10 @@ const scrape = require('../utils/scraper');
 const Article = require('../models/Article');
 
 module.exports = {
-	fetch: cb => {
+	add: cb => {
 		scrape(data => {
-			let articles = data;
 			let options = { ordered: false };
-			Article.collection.insertMany(articles, options,
+			Article.collection.insertMany(data, options,
 				(err, docs) => cb(err, docs));
 		});
 	},
@@ -19,9 +18,9 @@ module.exports = {
 	},
 
 	update: (query, cb) => {
-		Article.update({ _id: query._id }, { $set: query }, {}, cb)
+		Article.update({ _id: query.id }, { $set: query }, {}, cb)
 		.sort({ _id: -1 })
 		.exec((err, doc) => cb(doc));
 	}
-	
+
 }

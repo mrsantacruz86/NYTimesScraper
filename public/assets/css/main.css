@@ -30,6 +30,10 @@ body {
   margin-right: 2em;
   margin-top: 1em;
 }
+#btn-scrape{
+  margin-top:8px;
+}
+
 .panel{
   border-radius: 0;
 }
