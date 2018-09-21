@@ -30,5 +30,4 @@ var ArticleSchema = new Schema({
 
 var Article = mongoose.model("Article", ArticleSchema);
 
-// Export the database functions for the controller
 module.exports = Article;
