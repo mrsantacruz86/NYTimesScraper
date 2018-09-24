@@ -4,17 +4,17 @@ const cheerio = require('cheerio');
 const he = require('he');
 
 function scrapeArticles(cb) {
-	var url = 'http://www.miamiherald.com/news/';
+	var url = 'https://www.nytimes.com/section/politics';
 	axios.get(url)
 		.then(response => {
 			var articleList = [];
 			// Then, we load that into cheerio and save it to $
 			var $ = cheerio.load(response.data);
 
-			$('#story-list .teaser').each(function (i, element) {
+			$('#latest-panel .story-body').each( function(i,element){
 				var article = {
-					title: he.decode($(this).find('h4 > a').html().trim()),
-					link: $(this).find('a').attr('href').trim(),
+					title: he.decode($(this).find('h2.headline').html().trim()),
+					link: $(this).find('a.story-link').attr('href').trim(),
 					summary: he.decode($(this).find('p.summary').html().trim()),
 					date: new Date(),
 					saved: false
@@ -27,6 +27,7 @@ function scrapeArticles(cb) {
 		.catch(error => console.log(error));
 }
 
-module.exports = scrapeArticles;
+// scrapeArticles(arr => console.log(arr));
 
+module.exports = scrapeArticles;
 
