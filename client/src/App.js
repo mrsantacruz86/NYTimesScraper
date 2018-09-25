@@ -4,7 +4,6 @@ import Header from './Components/Header';
 import Content from './Components/Content';
 import './App.css';
 // import articleList from './js/dummyData';
-import API from './js/API';
 
 
 class App extends Component {
@@ -29,13 +28,6 @@ class App extends Component {
     return list.filter(item => item.saved === this.state.saved);
   }
 
-  loadArticles() {
-    API.getArticles()
-      .then(res => this.setState({ articles: res.data }))
-      .catch(err => console.log(err));
-
-  }
-
   handleButtonEvent(action, id) {
 
     this.loadArticles();
@@ -54,4 +46,25 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log("mapStateToProps");
+  return {
+    articles: state.articles
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  console.log("mapDispatchToProps");
+  return {
+    onIncrementClick: () => {
+      const action = { type: "INCREMENT" };
+      dispatch(action);
+    },
+    onDecrementClick: () => {
+      const action = { type: "DECREMENT" };
+      dispatch(action);
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);

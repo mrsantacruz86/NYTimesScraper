@@ -1,24 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 class Article extends Component {
-	constructor(props) {
-		super(props);
-		// this.handleDelete = this.handleDelete.bind(this);
-		this.handleSave = this.handleSave.bind(this);
-		// this.handleNotes = this.handleNotes.bind(this);
-	}
-
-	// handleDelete(e) {
-	// 	this.props.handleButtonEvent("delete",this.props.article.id);
-	// }
-
-	handleSave(e) {
-		this.props.handleButtonEvent("save",this.props.article.id);
-	}
-
-	// handleNotes(e) {
-	// 	this.props.handleButtonEvent("notes",this.props.article.id);
-	// }
 
 	render() {
 		return (
@@ -29,7 +12,7 @@ class Article extends Component {
 							<button type="button"
 								className="btn btn-sm btn-success btn-save"
 								data-_id={this.props.article._id}
-								onClick={this.handleSave}
+								onClick={this.props.handleSave}
 							>
 								Save Article
 						</button>
@@ -39,14 +22,14 @@ class Article extends Component {
 							<button type="button"
 								className="btn btn-sm btn-primary btn-notes"
 								data-_id={this.props.article._id}
-								//onClick={this.handleNotes}
+								onClick={this.props.handleNotes}
 								>
 								Article Notes
 							</button>
 							<button type="button"
 								className="btn btn-sm btn-danger btn-delete"
 								data-_id={this.props.article._id}
-								//onClick={this.handleDelete}
+								onClick={this.props.handleDelete}
 								>
 								Remove
 							</button>
@@ -59,8 +42,27 @@ class Article extends Component {
 				</a>
 				<p className="article-summary list-group-item-text">{this.props.article.summary}</p>
 			</li>
-		)
+		);
 	}
 }
 
-export default Article;
+
+const mapDispatchToProps = (dispatch) => {
+	console.log("mapDispatchToProps");
+	return {
+		handleSave: () => {
+			const action = { type: "SAVE" };
+			dispatch(action);
+		},
+		handleNotes: () => {
+			const action = { type: "NOTES" };
+			dispatch(action);
+		},
+		handleDelete: () => {
+			const action = { type: "DELETE" };
+			dispatch(action);
+		}
+	};
+};
+
+export default connect(mapDispatchToProps)(Article);
