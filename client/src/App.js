@@ -5,7 +5,7 @@ import Navbar from './Components/Navbar';
 import Header from './Components/Header';
 import Content from './Components/Content';
 import './App.css';
-// import articleList from './js/dummyData';
+import API from './js/API';
 
 
 class App extends Component {
@@ -18,9 +18,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("/api/articles")
-      .then(response => response.json())
-      .then(data => { this.setState({ articles: data }) });
+    API.getArticles()
+      .then(response => { this.setState({ articles: response.data });});
   }
 
   render() {
@@ -29,7 +28,6 @@ class App extends Component {
         <Navbar />
         <Header />
         <Content articles={this.state.articles}
-        //handleButtonEvent={this.handleButtonEvent}
         />
       </div>
     );

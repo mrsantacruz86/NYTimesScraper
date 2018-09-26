@@ -5,6 +5,6 @@ import axios from 'axios';
 export default {
 	getArticles: () => 	axios.get("/api/articles"),
 	scrapeArticles: () => axios.get("/api/scrape"),
-	saveArticle: (id) => axios.get(`/api/save/${id}`)
+	saveArticle: (id) => axios.put(`/api/save/${id}`)
 };
 
