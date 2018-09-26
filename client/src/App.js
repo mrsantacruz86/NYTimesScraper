@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {showArticles, saveArticle} from './actions';
 import Navbar from './Components/Navbar';
 import Header from './Components/Header';
 import Content from './Components/Content';
@@ -20,17 +22,6 @@ class App extends Component {
   componentDidMount() {
     window.location.pathname === "/saved" ?
       this.setState({ saved: true }) : this.setState({ saved: false });
-
-    this.loadArticles();
-  }
-
-  filterList(list) {
-    return list.filter(item => item.saved === this.state.saved);
-  }
-
-  handleButtonEvent(action, id) {
-
-    this.loadArticles();
   }
 
   render() {
@@ -49,22 +40,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   console.log("mapStateToProps");
   return {
-    articles: state.articles
+    articles: state
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  console.log("mapDispatchToProps");
-  return {
-    onIncrementClick: () => {
-      const action = { type: "INCREMENT" };
-      dispatch(action);
-    },
-    onDecrementClick: () => {
-      const action = { type: "DECREMENT" };
-      dispatch(action);
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, { showArticles, saveArticle })(App);
