@@ -13,15 +13,14 @@ class App extends Component {
     super(props);
     this.state = {
       articles: [],
-      saved: false,
-      filterList: []
     };
 
   }
 
   componentDidMount() {
-    window.location.pathname === "/saved" ?
-      this.setState({ saved: true }) : this.setState({ saved: false });
+    fetch("/api/articles")
+      .then(response => response.json())
+      .then(data => { this.setState({ articles: data }) });
   }
 
   render() {
