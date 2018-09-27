@@ -15,7 +15,7 @@ router.get("/api/scrape", (req, res) => {
 			res.json({
 				Error: err,
 				message: `${docs.insertedCount} new articles were succesfully added!`
-			});
+			}); 
 		}
 	});
 });
@@ -26,6 +26,23 @@ router.get("/api/scrape", (req, res) => {
 // router.use(function (req, res) {
 // 	res.sendFile(path.join(__dirname, "../client/build/index.html"));
 // });
+
+router.get("/api/articles/:status", (req, res) => {
+	let query = {};
+	if(req.params.status === "saved"){
+		query={saved: true};
+	} else if(req.params.status === "unsaved"){
+		query={saved: false};
+	}
+
+	articlesController.get(query, (err,data)=> {
+		if(err){
+			res.json(err);
+		} else {
+			res.json(data);
+		}
+	});
+});
 
 router.get("/api/articles", (req, res) => {
 	articlesController.get({}, (err,data)=> {
@@ -42,7 +59,7 @@ router.put("/api/save/:id", (req,res) => {
 		saved: true,
 		_id: req.params.id
 	};
-	articlesController.update(query, (docs) => res.json({message: "Article successfuly saved"}) );
+	articlesController.update(query, (docs) => res.json({message: `${docs.length}Article successfuly saved`}) );
 });
 
 router.delete("/api/articles/:id", (req, res) => {
@@ -50,7 +67,5 @@ router.delete("/api/articles/:id", (req, res) => {
 	query.id = req.params.id;
 	articlesController.delete(query, (err, data) => res.json(data));
 });
-
-
 
 module.exports = router;

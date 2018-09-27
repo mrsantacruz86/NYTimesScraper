@@ -18,9 +18,10 @@
     "url": "https://github.com/mrsantacruz86/NYTimesScraper.git"
   },
   "keywords": [
-    "express",
-    "handlebars",
-    "mysql",
+    "react",
+    "redux",
+    "mongo",
+    "mongoose",
     "scraper"
   ],
   "author": "Nelson Diaz",
