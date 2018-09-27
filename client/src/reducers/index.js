@@ -1,18 +1,23 @@
-import { SHOW_ARTICLES, SAVE_ARTICLE } from '../actions';
+import { SHOW_ARTICLES, SAVE_ARTICLE,  } from '../actions';
+import API from '../js/API';
+
 
 const initialState = {
-	articles: []
+	articles: [],
+	notes:[],
+	selectedArticle: {},
+	selectedNote: {}
 };
 
-const articles = (state = initialState, action) => {
-	let articles = [];
+const scraperApp = (state = initialState, action) => {
+	let scraperApp = {articles:[]};
 	switch (action.type) {
 		case SHOW_ARTICLES:
 			// TODO: Return all articles
-			// Object.assign(articles, state);
-			// articles.selected = [];
-			// return posts;
-			return articles;
+			API.getArticles()
+				.then(response => 
+			return Object.assign({}, state, {articles: response.data
+			});
 		case SAVE_ARTICLE:
 			// TODO: Save selected article
 			return articles;
@@ -21,4 +26,4 @@ const articles = (state = initialState, action) => {
 	}
 };
 
-export default articles;
+export default scraperApp;

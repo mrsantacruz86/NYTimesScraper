@@ -5,7 +5,6 @@ import Navbar from './Components/Navbar';
 import Header from './Components/Header';
 import Content from './Components/Content';
 import './App.css';
-import API from './js/API';
 
 
 class App extends Component {
@@ -18,8 +17,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    API.getArticles()
-      .then(response => { this.setState({ articles: response.data });});
+    
   }
 
   render() {
