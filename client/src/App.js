@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {showArticles, saveArticle} from './actions';
+import { connect } from 'react-redux';
 import Navbar from './Components/Navbar';
 import Header from './Components/Header';
 import Content from './Components/Content';
 import './App.css';
+import API from './js/API';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-    };
-
-  }
-
   componentDidMount() {
-    
+    this.props.onFetchArticles();
   }
 
   render() {
@@ -25,18 +17,35 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Header />
-        <Content articles={this.state.articles}
-        />
+        <Content />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log("mapStateToProps");
   return {
-    articles: state
+    articles: state.articles
   };
 };
 
-export default connect(mapStateToProps, { showArticles, saveArticle })(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchArticles: () => {
+      API.getArticles()
+        .then(response => {
+          const action = {
+            type: "SHOW_ARTICLES",
+            data: response.data
+          };
+          dispatch(action);
+        });
+    },
+    onDecrementClick: () => {
+      const action = { type: "DECREMENT" };
+      dispatch(action);
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
