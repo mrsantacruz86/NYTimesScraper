@@ -4,10 +4,11 @@ import Navbar from './Components/Navbar';
 import Header from './Components/Header';
 import Content from './Components/Content';
 import './App.css';
-import API from './js/API';
+// import API from './js/API';
 
 
 class App extends Component {
+
   componentDidMount() {
     this.props.onFetchArticles();
   }
@@ -17,35 +18,18 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Header />
-        <Content />
+        <Content articles={this.props.articles}/>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log ("Log State:\n", state);
+  console.log ("Log Props:\n", this.props.articles);
   return {
     articles: state.articles
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFetchArticles: () => {
-      API.getArticles()
-        .then(response => {
-          const action = {
-            type: "SHOW_ARTICLES",
-            data: response.data
-          };
-          dispatch(action);
-        });
-    },
-    onDecrementClick: () => {
-      const action = { type: "DECREMENT" };
-      dispatch(action);
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
