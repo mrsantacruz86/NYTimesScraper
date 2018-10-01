@@ -1,15 +1,15 @@
-import { SHOW_ARTICLES, SAVE_ARTICLE } from "../actionTypes";
-import dummyData from '../../js/dummyData';
-import API from '../../js/API';
+import { FETCH_ARTICLES, SAVE_ARTICLE } from "../actions/actionTypes";
 
 const initialState = {
-  data: dummyData,
+  data: [],
+  isFetching: false,
+  isError: false
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SHOW_ARTICLES: {
-      return {data: action.data};
+    case FETCH_ARTICLES: {
+      return Object.assign({}, state,{data: action.data});
     }
     default:
       return state;

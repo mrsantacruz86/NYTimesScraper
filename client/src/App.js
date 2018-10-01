@@ -12,6 +12,7 @@ class App extends Component {
   componentDidMount() {
     API.getArticles()
     .then(response => {
+      // console.log(response);
       this.props.onFetchArticles(response.data);
     })
     .catch(err => console.log(err));
@@ -40,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onFetchArticles: (data) => {
       const action = {
-        type: "SHOW_ARTICLES",
+        type: "FETCH_ARTICLES",
         data: data
       };
       dispatch(action);
