@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Navbar from './Components/Navbar';
-import Header from './Components/Header';
-import Content from './Components/Content';
 import './App.css';
-import API from './js/API';
-// import actions from './redux/actions';
+import Content from './Components/Content';
+import Header from './Components/Header';
+import Navbar from './Components/Navbar';
+import { thunkFetchArticles } from './redux/actions/articlesActions';
 
 class App extends Component {
 
   componentDidMount() {
-    API.getArticles()
-    .then(response => {
-      // console.log(response);
-      this.props.onFetchArticles(response.data);
-    })
-    .catch(err => console.log(err));
+    this.props.dispatch(thunkFetchArticles);
   }
 
   render() {
@@ -30,23 +24,23 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("Log State:\n", state);
+  // console.log("Log State:\n", state);
   return {
     articles: state.articles
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  console.log("mapDispatchToProps");
-  return {
-    onFetchArticles: (data) => {
-      const action = {
-        type: "FETCH_ARTICLES",
-        data: data
-      };
-      dispatch(action);
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   console.log("mapDispatchToProps");
+//   return {
+//     onFetchArticles: (data) => {
+//       const action = {
+//         type: "FETCH_ARTICLES",
+//         data: data
+//       };
+//       dispatch(action);
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, /*mapDispatchToProps*/)(App);
