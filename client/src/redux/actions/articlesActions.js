@@ -14,7 +14,7 @@ export const saveArticle = id => ({
 
 export const thunkFetchArticles = () => {
   store.dispatch(fetchArticles());
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return API.getArticles()
     .then(response => {
       if(response.status === 200 && response.data.length > 0){

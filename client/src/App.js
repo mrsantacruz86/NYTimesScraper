@@ -9,7 +9,7 @@ import { thunkFetchArticles } from './redux/actions/articlesActions';
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(thunkFetchArticles);
+    this.props.dispatch(thunkFetchArticles());
   }
 
   render() {
@@ -24,23 +24,11 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("Log State:\n", state);
   return {
     articles: state.articles
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   console.log("mapDispatchToProps");
-//   return {
-//     onFetchArticles: (data) => {
-//       const action = {
-//         type: "FETCH_ARTICLES",
-//         data: data
-//       };
-//       dispatch(action);
-//     }
-//   }
-// }
 
-export default connect(mapStateToProps, /*mapDispatchToProps*/)(App);
+
+export default connect(mapStateToProps)(App);
