@@ -14,13 +14,13 @@ module.exports = {
 
   get: (query, cb) => {
     Article.find(query).sort({ _id: -1 })
-      .exec((err, doc) => cb(doc));
+      .exec((err, doc) => cb(err, doc));
   },
 
-  update: (query, cb) => {
-    Article.update({ _id: query.id }, { $set: query }, {}, cb)
-      .sort({ _id: -1 })
-      .exec((err, doc) => cb(doc));
+  update: (id, query, cb) => {
+    Article.findByIdAndUpdate(id, { $set: query }, (err, data) => {
+      cb(err,data);
+    });
   }
 
 };
