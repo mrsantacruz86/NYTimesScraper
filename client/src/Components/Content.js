@@ -13,7 +13,7 @@ class Content extends Component {
 					<div className="panel-body">
 						<ul className="list-group">
 							{this.props.articles.map(item => (
-								<Article article={item} key={item._id} />
+								<Article {...item} key={item._id} />
 							))}
 						</ul>
 					</div>

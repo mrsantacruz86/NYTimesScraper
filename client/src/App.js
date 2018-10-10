@@ -4,12 +4,13 @@ import './App.css';
 import Content from './Components/Content';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
-import { thunkFetchArticles } from './redux/actions/articlesActions';
+import {bindActionCreators} from 'redux';
+import { asyncFetchArticles } from './redux/actions/articlesActions';
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(thunkFetchArticles());
+    this.props.getAllArticles();
   }
 
   render() {
@@ -29,6 +30,11 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllArticles: bindActionCreators(asyncFetchArticles, dispatch)
+  };
+};
 
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
