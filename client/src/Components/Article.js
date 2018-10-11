@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { asyncSaveArticle } from '../redux/actions/articlesActions';
+import ActionButton from './ActionButton';
 
 class Article extends Component {
 
@@ -11,27 +9,12 @@ class Article extends Component {
 				{
 					!this.props.saved ?
 						<div>
-							<button type="button"
-								className="btn btn-sm btn-success btn-save"
-								// onClick={asyncSaveArticle(this.props._id)}
-							>
-								Save Article
-						</button>
+							<ActionButton	stl={"success"}	text={"Save"} />
 						</div>
 						:
 						<div>
-							<button type="button"
-								className="btn btn-sm btn-primary btn-notes"
-								// onClick={this.props.handleNotes}
-							>
-								Article Notes
-							</button>
-							<button type="button"
-								className="btn btn-sm btn-danger btn-delete"
-								// onClick={this.props.handleDelete}
-							>
-								Remove
-							</button>
+						<ActionButton	stl={"primary"} text={"Notes"} />
+						<ActionButton	stl={"danger"} text={"Delete"} />
 						</div>
 				}
 				<a className="article-link" href={this.props.link} target="_blank">
@@ -44,10 +27,4 @@ class Article extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onSaveArticle: bindActionCreators(asyncSaveArticle, dispatch)
-	};
-};
-
-export default connect(mapDispatchToProps)(Article);
+export default Article;

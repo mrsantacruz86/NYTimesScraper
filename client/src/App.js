@@ -4,7 +4,6 @@ import './App.css';
 import Content from './Components/Content';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
-import {bindActionCreators} from 'redux';
 import { asyncFetchArticles } from './redux/actions/articlesActions';
 
 class App extends Component {
@@ -32,7 +31,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllArticles: bindActionCreators(asyncFetchArticles, dispatch)
+    getAllArticles: () => {
+      return dispatch(asyncFetchArticles());
+    }
   };
 };
 
