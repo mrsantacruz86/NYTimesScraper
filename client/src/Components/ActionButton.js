@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { asyncSaveArticle } from '../redux/actions/articlesActions';
-import { bindActionCreators } from 'redux';
 
 
 class ActionButton extends Component {
@@ -15,7 +14,7 @@ class ActionButton extends Component {
         type="button"
         className={`btn btn-sm btn-${stl} btn-${text.toLowerCase()}`}
         // onClick={this.props.onSaveArticle(this.props._id)}
-        onClick={this.props.onSaveArticle()}
+        onClick={() => this.props.onSaveArticle()}
       >
         {this.props.text}
       </button>
@@ -27,7 +26,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSaveArticle: (id) => {
       return () => {
-        return bindActionCreators(asyncSaveArticle(id), dispatch);
+        console.log("Save action Fired");
+        return dispatch(asyncSaveArticle(id));
         // const action = { type: "INPUT_CHANGE", text: e.target.value}
         // return dispatch(articleSaved());
       };
