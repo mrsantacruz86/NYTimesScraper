@@ -21,7 +21,7 @@ function scrapeArticles(cb) {
 				};
 				articleList.push(article);
 			});
-			console.log(JSON.stringify(articleList, null, 2));
+			// console.log(JSON.stringify(articleList, null, 2));
 			cb(articleList);
 		})
 		.catch(error => console.log(error));

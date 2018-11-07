@@ -9,12 +9,25 @@ class Article extends Component {
 				{
 					!this.props.saved ?
 						<div>
-							<ActionButton	stl={"success"}	text={"Save"} />
+							<ActionButton
+								stl={"success"}
+								text={"Save"}
+								articleId={this.props._id}
+							/>
 						</div>
 						:
 						<div>
-						<ActionButton	stl={"primary"} text={"Notes"} />
-						<ActionButton	stl={"danger"} text={"Delete"} />
+							<ActionButton
+								stl={"primary"}
+								text={"Notes"}
+								articleId={this.props._id}
+
+							/>
+							<ActionButton
+								stl={"danger"}
+								text={"Delete"}
+								articleId={this.props._id}
+							/>
 						</div>
 				}
 				<a className="article-link" href={this.props.link} target="_blank">
