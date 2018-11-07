@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const routes = require('./routes');
 
-var PORT = process.env.PORT || 3001;
-var app = express();
+const PORT = process.env.PORT || 3001;
+const app = express();
 app.use(logger('dev'));
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
