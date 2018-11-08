@@ -16,7 +16,7 @@ class Article extends Component {
 								// onClick={() => this.props.onSaveArticle(this.props._id)}
 								onClick={() => {
 									console.log("the save button has been clicked", this.props._id);
-									this.props.onSaveArticle(this.props._id);
+									this.props.dispatch(asyncSaveArticle(this.props._id));
 								}}
 							>
 								Save
@@ -26,15 +26,15 @@ class Article extends Component {
 						<div>
 							<button
 								type="button"
-								className={`btn btn-sm btn-prpmary btn-notes`}
-								// onClick={() => ...}
+								className={`btn btn-sm btn-primary btn-notes`}
+								onClick={() => console.log("Click on Notes: " + this.props._id)}
 							>
 								Notes
 							</button>
 							<button
 								type="button"
 								className={`btn btn-sm btn-danger btn-delete`}
-								// onClick={() => ...}
+								onClick={() => console.log("Click on Delete: " + this.props._id)}
 							>
 								Delete
 							</button>
@@ -48,15 +48,6 @@ class Article extends Component {
 		);
 	}
 }
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onSaveArticle: (id) => {
-			return () => {
-				console.log("Save action Fired");
-				return dispatch(asyncSaveArticle(id));
-			};
-		}
-	};
-};
+const mapStateToProps = state => ({...state});
 
-export default connect(mapDispatchToProps)(Article);
+export default connect(mapStateToProps)(Article);

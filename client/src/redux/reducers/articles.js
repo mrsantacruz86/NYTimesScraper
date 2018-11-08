@@ -12,7 +12,6 @@ const initialState = {
   isFetching: false,
   isError: false,
   savingArticle: false,
-  articleSaved: false,
   errorOnSave: false
 };
 
@@ -37,17 +36,17 @@ export default function (state = initialState, action) {
       });
     case SAVE_ARTICLE:
       return Object.assign({}, state, {
-        data: action.data,
+        savingArticle: true,
       });
     case ARTICLE_SAVED:
       return Object.assign({}, state, {
-        isError: true,
-        isFetching: false
+        savingArticle: false,
+        errorOnSave: false
       });
     case RECEIVE_ONSAVE_ERROR:
       return Object.assign({}, state, {
-        isError: true,
-        isFetching: false
+        savingArticle: false,
+        errorOnSave: true
       });
     default:
       return state;
