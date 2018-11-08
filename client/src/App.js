@@ -17,16 +17,17 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Header />
-        <Content articles={this.props.articles.data} />
+        <Content
+          articles={this.props.articles.data}
+          filter={this.props.articles.filterSaved}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    articles: state.articles
-  };
+  return { ...state };
 };
 
 const mapDispatchToProps = (dispatch) => {

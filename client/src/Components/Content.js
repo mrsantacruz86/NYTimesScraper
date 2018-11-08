@@ -4,6 +4,13 @@ import Article from './Article';
 class Content extends Component {
 
 	render() {
+		const { articles, filter } = this.props;
+		// console.log(filterSaved);
+		var filteredList = articles.filter(article => {
+			return article.saved === filter;
+		});
+		// console.log(filteredList);
+
 		return (
 			<div className="row">
 				<div className="panel panel-default">
@@ -12,9 +19,10 @@ class Content extends Component {
 					</div>
 					<div className="panel-body">
 						<ul className="list-group">
-							{this.props.articles.map(item => (
-								<Article {...item} key={item._id} />
-							))}
+							{
+								filteredList.map(item => (
+									<Article {...item} key={item._id} />
+								))}
 						</ul>
 					</div>
 				</div>

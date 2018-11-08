@@ -4,7 +4,9 @@ import {
   RECEIVE_ERROR,
   SAVE_ARTICLE,
   ARTICLE_SAVED,
-  RECEIVE_ONSAVE_ERROR
+  RECEIVE_ONSAVE_ERROR,
+  VIEW_SAVED,
+  VIEW_UNSAVED
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -12,7 +14,8 @@ const initialState = {
   isFetching: false,
   isError: false,
   savingArticle: false,
-  errorOnSave: false
+  errorOnSave: false,
+  filterSaved: false
 };
 
 export default function (state = initialState, action) {
@@ -47,6 +50,14 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, {
         savingArticle: false,
         errorOnSave: true
+      });
+    case VIEW_SAVED:
+      return Object.assign({}, state, {
+        filterSaved: true
+      });
+    case VIEW_UNSAVED:
+      return Object.assign({}, state, {
+        filterSaved: false
       });
     default:
       return state;

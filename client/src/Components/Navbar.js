@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { scrapeArticles } from '../redux/actions/articlesActions';
+import { viewSaved, viewUnsaved } from '../redux/actions/visibilityFilter';
 
 class Navbar extends Component {
 	constructor(props) {
@@ -7,7 +10,15 @@ class Navbar extends Component {
 	}
 
 	handleScrape(e) {
-		this.props.handleScrape();
+		this.props.dispatch(scrapeArticles());
+	}
+	handleViewSaved(e) {
+		e.preventDefault();
+		this.props.dispatch(viewSaved());
+	}
+	handleViewUnsaved(e) {
+		e.preventDefault();
+		this.props.dispatch(viewUnsaved());
 	}
 
 	render() {
@@ -30,16 +41,32 @@ class Navbar extends Component {
 
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul className="nav navbar-nav">
-								<li className={window.location.pathname === "/" ? "nav-item active" : "nav-item"}>
-									<a href="/">Home
-              <span className="sr-only">(current)</span>
+								<li className={!this.props.articles.filterSaved ? "nav-item active" : "nav-item"}>
+									<a
+										onClick={(e) => this.handleViewUnsaved(e)}
+									>
+										Home
+              			<span className="sr-only">(current)</span>
+									</a>
+
+								</li>
+
+								<li className={this.props.articles.filterSaved ? "nav-item active" : "nav-item"}>
+									<a
+										onClick={(e) => this.handleViewSaved(e)}
+									>
+										Saved Articles
 									</a>
 								</li>
-								<li className={window.location.pathname === "/saved" ? "nav-item active" : "nav-item"}>
-									<a href="/saved">Saved Articles</a>
-								</li>
+
 								<li>
-									<button className="btn btn-danger" id="btn-scrape" onClick={this.props.handleScrape}>Scrape New Articles</button>
+									<button
+										className="btn btn-danger"
+										id="btn-scrape"
+										onClick={() => this.handleScrape()}
+									>
+										Scrape New Articles
+									</button>
 								</li>
 							</ul>
 
@@ -47,8 +74,9 @@ class Navbar extends Component {
 					</div>
 				</nav>
 			</div>
-		)
+		);
 	}
 }
 
-export default Navbar;
+const mapStateToProps = state => ({ ...state });
+export default connect(mapStateToProps)(Navbar);
