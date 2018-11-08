@@ -10,6 +10,7 @@ class Navbar extends Component {
 	}
 
 	handleScrape(e) {
+		e.preventDefault();
 		this.props.dispatch(scrapeArticles());
 	}
 	handleViewSaved(e) {
@@ -63,7 +64,7 @@ class Navbar extends Component {
 									<button
 										className="btn btn-danger"
 										id="btn-scrape"
-										onClick={() => this.handleScrape()}
+										onClick={(e) => this.handleScrape(e)}
 									>
 										Scrape New Articles
 									</button>
