@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ActionButton from './ActionButton';
+import { connect } from 'react-redux';
+import { asyncSaveArticle } from '../redux/actions/articlesActions';
 
 class Article extends Component {
 
@@ -9,25 +10,34 @@ class Article extends Component {
 				{
 					!this.props.saved ?
 						<div>
-							<ActionButton
-								stl={"success"}
-								text={"Save"}
-								articleId={this.props._id}
-							/>
+							<button
+								type="button"
+								className={`btn btn-sm btn-success btn-save`}
+								// onClick={() => this.props.onSaveArticle(this.props._id)}
+								onClick={() => {
+									console.log("the save button has been clicked", this.props._id);
+									this.props.onSaveArticle(this.props._id);
+								}}
+							>
+								Save
+							</button>
 						</div>
 						:
 						<div>
-							<ActionButton
-								stl={"primary"}
-								text={"Notes"}
-								articleId={this.props._id}
-
-							/>
-							<ActionButton
-								stl={"danger"}
-								text={"Delete"}
-								articleId={this.props._id}
-							/>
+							<button
+								type="button"
+								className={`btn btn-sm btn-prpmary btn-notes`}
+								// onClick={() => ...}
+							>
+								Notes
+							</button>
+							<button
+								type="button"
+								className={`btn btn-sm btn-danger btn-delete`}
+								// onClick={() => ...}
+							>
+								Delete
+							</button>
 						</div>
 				}
 				<a className="article-link" href={this.props.link} target="_blank">
@@ -38,6 +48,15 @@ class Article extends Component {
 		);
 	}
 }
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onSaveArticle: (id) => {
+			return () => {
+				console.log("Save action Fired");
+				return dispatch(asyncSaveArticle(id));
+			};
+		}
+	};
+};
 
-
-export default Article;
+export default connect(mapDispatchToProps)(Article);

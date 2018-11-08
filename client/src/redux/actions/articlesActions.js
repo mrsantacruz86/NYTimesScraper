@@ -37,18 +37,6 @@ export const saveArticle = () => ({ type: SAVE_ARTICLE });
 export const articleSaved = (message) => ({ type: ARTICLE_SAVED, message: message });
 export const receiveOnSaveError = () => ({ type: RECEIVE_ONSAVE_ERROR });
 
-// export const asyncSaveArticle = (id) => {
-//   return dispatch => {
-//     API.saveArticle(id)
-//       .then(response => {
-//         dispatch({
-//           type: "ARTICLE_SAVED",
-//           message: `Saved: ${id}`
-//         });
-//       })
-//       .catch(err => dispatch(receiveOnSaveError()));
-//   };
-// };
 export const asyncSaveArticle = (id) => {
   store.dispatch(saveArticle());
   return dispatch => {

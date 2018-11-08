@@ -12,7 +12,7 @@ class ActionButton extends Component {
       <button
         type="button"
         className={`btn btn-sm btn-${stl} btn-${text.toLowerCase()}`}
-        onClick={this.props.onSaveArticle(articleId)}
+        onClick={() => this.props.onSaveArticle(articleId)}
       >
         {this.props.text}
       </button>
@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch) => {
     onSaveArticle: (id) => {
       return () => {
         console.log("Save action Fired");
-        return (asyncSaveArticle(id));
+        // return (asyncSaveArticle(id));
         // const action = { type: "INPUT_CHANGE", text: e.target.value}
-        // return dispatch(articleSaved());
+        return dispatch(asyncSaveArticle(id));
       };
     }
   };
