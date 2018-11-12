@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { articlesController, notesController } = require('../controllers');
 
-// Routes
+// Articles Routes
 
 router.get("/api/scrape", (req, res) => {
 	articlesController.add((err, docs) => {
@@ -27,22 +27,6 @@ router.get("/api/scrape", (req, res) => {
 // 	res.sendFile(path.join(__dirname, "../client/build/index.html"));
 // });
 
-router.get("/api/articles/:status", (req, res) => {
-	let query = {};
-	if (req.params.status === "saved") {
-		query = { saved: true };
-	} else if (req.params.status === "unsaved") {
-		query = { saved: false };
-	}
-
-	articlesController.get(query, (err, data) => {
-		if (err) {
-			res.json(err);
-		} else {
-			res.json(data);
-		}
-	});
-});
 
 router.get("/api/articles", (req, res) => {
 	articlesController.get({}, (err, data) => {
@@ -69,6 +53,12 @@ router.delete("/api/articles/:id", (req, res) => {
 	var query = {};
 	query._id = req.params.id;
 	articlesController.delete(query, (err, data) => res.json(data));
+});
+
+// Notes routes
+router.post("/api/notes", (req, res) => {
+	var note = req.body;
+	notesController.create(note,  data => res.json(data));
 });
 
 module.exports = router;
