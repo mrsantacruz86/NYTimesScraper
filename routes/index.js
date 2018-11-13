@@ -61,4 +61,9 @@ router.post("/api/notes", (req, res) => {
 	notesController.create(note,  data => res.json(data));
 });
 
+router.delete("/api/notes", (req, res) => {
+	var note = req.body;
+	notesController.create(note,  data => res.json(data));
+});
+
 module.exports = router;

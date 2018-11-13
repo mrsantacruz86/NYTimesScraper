@@ -5,9 +5,10 @@ const Article = require('../models/Article');
 module.exports = {
 	create: (data, cb) => {
 		let note = new Note(data);
-		note.save(err => {
+		console.log(note);
+		Note.create(note, (err, noteData) => {
 			if (err) return console.log(err);
-			Article.findByIdAndUpdate(data._articleId, { $push: { notes: note._id } }, cb(data));
+			Article.findByIdAndUpdate(noteData._articleId, { $push: { notes: noteData._id } }, cb(note));
 		});
 	},
 	delete: (data, cb) => Note.remove({ _id: data._id }, cb),
