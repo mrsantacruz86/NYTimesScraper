@@ -21,6 +21,12 @@ module.exports = {
     Article.findByIdAndUpdate(id, { $set: query }, (err, data) => {
       cb(err,data);
     });
+  },
+  addNote: (articleId,noteId,cb) => {
+    Article.findByIdAndUpdate(articleId, { $push: {notes:noteId }}, (err, data) => {
+      if(err) return console.log(err);
+      cb(data);
+    });
   }
 
 };

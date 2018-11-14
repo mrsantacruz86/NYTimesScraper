@@ -44,7 +44,7 @@ router.put("/api/save/:id", (req, res) => {
 		err ? res.json(err) : res.json(
 			{
 				message: "Article successfuly saved",
-				data: docs 
+				data: docs
 			});
 	});
 });
@@ -56,14 +56,27 @@ router.delete("/api/articles/:id", (req, res) => {
 });
 
 // Notes routes
+router.get("/api/notes/:_articleId", (req, res) => {
+	let query = {
+		_articleId: req.params._articleId
+	};
+	console.log(query);
+	notesController.get(query, data => res.json(data));
+});
+
 router.post("/api/notes", (req, res) => {
-	var note = req.body;
-	notesController.create(note,  data => res.json(data));
+	let note = req.body;
+	notesController.create(note, data => res.json(data));
+});
+
+router.put("/api/notes", (req, res) => {
+	let note = req.body;
+	articlesController.addNote(note._articleId, note._id, data => res.json(data));
 });
 
 router.delete("/api/notes", (req, res) => {
-	var note = req.body;
-	notesController.create(note,  data => res.json(data));
+	let note = req.body;
+	notesController.create(note, data => res.json(data));
 });
 
 module.exports = router;
