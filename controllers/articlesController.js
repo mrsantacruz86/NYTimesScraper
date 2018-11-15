@@ -13,20 +13,25 @@ module.exports = {
   delete: (query, cb) => Article.remove(query, cb),
 
   get: (query, cb) => {
-    Article.find(query).sort({ _id: -1 })
-      .exec((err, doc) => cb(err, doc));
+    Article.find(query)
+      .sort({ _id: -1 })
+      .then(doc => cb(doc))
+      .catch(err => cb(err));
   },
 
   update: (id, query, cb) => {
-    Article.findByIdAndUpdate(id, { $set: query }, (err, data) => {
-      cb(err,data);
-    });
+    Article.findOneAndUpdate(
+      {_id: id},
+      { $set: query },
+      {new: true})
+      .then(data => cb(data))
+      .catch(err => cb(err));
   },
-  addNote: (articleId,noteId,cb) => {
-    Article.findByIdAndUpdate(articleId, { $push: {notes:noteId }}, (err, data) => {
-      if(err) return console.log(err);
-      cb(data);
-    });
+  populated: (id, cb) => {
+    Article.findById(id)
+      .populate("notes")
+      .then(article => cb(article))
+      .catch(err => cb(err));
   }
 
 };

@@ -29,24 +29,22 @@ router.get("/api/scrape", (req, res) => {
 
 
 router.get("/api/articles", (req, res) => {
-	articlesController.get({}, (err, data) => {
-		if (err) {
-			res.json(err);
-		} else {
-			res.json(data);
-		}
+	articlesController.get({}, data => {
+		res.json(data);
 	});
 });
 
+router.get("/api/populatedarticle/:id", (req, res) => {
+	articlesController.populated(
+		req.params.id,
+		data => res.json(data));
+});
+
 router.put("/api/save/:id", (req, res) => {
-	let query = { saved: true };
-	articlesController.update(req.params.id, query, (err, docs) => {
-		err ? res.json(err) : res.json(
-			{
-				message: "Article successfuly saved",
-				data: docs
-			});
-	});
+	articlesController.update(
+		req.params.id,
+		{ saved: true },
+		data => res.json(data));
 });
 
 router.delete("/api/articles/:id", (req, res) => {
@@ -55,7 +53,8 @@ router.delete("/api/articles/:id", (req, res) => {
 	articlesController.delete(query, (err, data) => res.json(data));
 });
 
-// Notes routes
+// Notes Routes
+
 router.get("/api/notes/:_articleId", (req, res) => {
 	let query = {
 		_articleId: req.params._articleId

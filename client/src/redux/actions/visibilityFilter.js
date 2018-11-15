@@ -1,5 +1,3 @@
-import API from '../../js/API';
-
 import {
   VIEW_SAVED,
   VIEW_UNSAVED
