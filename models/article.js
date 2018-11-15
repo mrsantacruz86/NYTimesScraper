@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// const {notesController} = require('../controllers');
 const Note = require('./Note');
 
 var Schema = mongoose.Schema;
@@ -9,11 +10,11 @@ var ArticleSchema = new Schema({
     unique: true
   },
 
-  date: { 
-    type: Date, 
-    default: Date.now 
+  date: {
+    type: Date,
+    default: Date.now
   },
-  
+
   link: {
     type: String,
     required: true
@@ -23,15 +24,18 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+
   saved: {
     type: Boolean,
     default: false
   },
+
   notes: [{ type: Schema.Types.ObjectId, ref: 'Note' }]
 });
 
-ArticleSchema.pre('remove', async function () {
-  await Note.remove({_articleId: this._id});
+ArticleSchema.pre('remove', { query: true }, function (next) {
+  Note.deleteMany({ _articleId: this._conditions._id }).exec();
+  next();
 });
 
 var Article = mongoose.model("Article", ArticleSchema);

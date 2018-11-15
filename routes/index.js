@@ -72,8 +72,7 @@ router.put("/api/notes", (req, res) => {
 });
 
 router.delete("/api/notes", (req, res) => {
-	let note = req.body;
-	notesController.create(note, data => res.json(data));
+	notesController.delete(req.body, data => res.json(data));
 });
 
 module.exports = router;

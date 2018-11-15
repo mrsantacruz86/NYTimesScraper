@@ -15,7 +15,11 @@ module.exports = {
 			.catch(err => cb(err));
 	},
 
-	delete: (data, cb) => Note.remove({ _id: data._id }, cb),
+	delete: (query, cb) => {
+		Note.deleteMany(query)
+			.then(doc => cb(doc))
+			.catch(err => cb(err));
+	},
 
 	get: (query, cb) => {
 		Note.find(query, (err, response) => {
