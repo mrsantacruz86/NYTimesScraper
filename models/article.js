@@ -25,10 +25,10 @@ var ArticleSchema = new Schema({
   saved: {
     type: Boolean,
     default: false
-  }
+  },
+  notes: [{ type: Schema.Types.ObjectId, ref: 'Note' }]
 });
 
 var Article = mongoose.model("Article", ArticleSchema);
 
-// Export the database functions for the controller
 module.exports = Article;

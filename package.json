@@ -1,20 +1,27 @@
 {
-  "name": "mongo-scraper",
-  "version": "1.0.0",
-  "description": "This app is a burger preferences log that keeps a wishlist of burgers and allows the user to check when one has been tasted.",
+  "name": "nyt-scaper",
+  "version": "1.2.0",
+  "description": "New York Times web scraper.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "if-env NODE_ENV=production && yarn start:prod || yarn start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
+    "client": "cd client && yarn start",
+    "install": "cd client && yarn install",
+    "build": "cd client && yarn build",
+    "heroku-postbuild": "yarn build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mrsantacruz86/NYTimesScraper.git"
   },
   "keywords": [
-    "express",
-    "handlebars",
-    "mysql",
+    "react",
+    "redux",
+    "mongo",
+    "mongoose",
     "scraper"
   ],
   "author": "Nelson Diaz",
@@ -23,13 +30,19 @@
     "url": "https://github.com/mrsantacruz86/NYTimesScraper/issues"
   },
   "homepage": "https://github.com/mrsantacruz86/NYTimesScraper#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "eslint": "^5.6.1",
+    "eslint-plugin-react": "^7.11.1",
+    "nodemon": "^1.11.0"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
     "he": "^1.1.1",
+    "if-env": "^1.0.4",
     "mongoose": "^5.1.3",
     "morgan": "^1.9.0"
   }

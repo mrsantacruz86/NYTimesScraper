@@ -1,26 +1,31 @@
-const scrape = require('../utils/scraper');
 const Note = require('../models/Note');
+const Article = require('../models/Article');
 
 module.exports = {
 	create: (data, cb) => {
-		let newNote = {
-			_articleId: data._id,
-			date: new Date(),
-			text: data.text,
-		};
-			Note.create( newNote, (err, doc) => {
-				if (err) {
-					console.log(err);
-				} else{
-					console.log(doc);
-					cb(doc);
-				}
-			});
+		Note.create(data)
+			.then(note => {
+				return Article.findOneAndUpdate(
+					{ _id: note._articleId },
+					{ $push: { notes: note._id } },
+					// { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+					{ new: true });
+			})
+			.then(article => cb(article))
+			.catch(err => cb(err));
 	},
-	delete: (data, cb) => Note.remove({_id: data._id}, cb),
-	get: (data, cb) => Note.find({_articleId: data._id}, cb),
+
+	delete: (data, cb) => Note.remove({ _id: data._id }, cb),
+
+	get: (query, cb) => {
+		Note.find(query, (err, response) => {
+			if (err) return console.log(err);
+			cb(response);
+		});
+	},
+
 	update: (query, cb) => {
 		Note.update({ _id: query._id }, { $set: query }, {}, cb)
 			.exec((err, doc) => cb(doc));
 	}
-}
+};
