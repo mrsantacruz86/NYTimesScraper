@@ -5,16 +5,14 @@ const { articlesController, notesController } = require('../controllers');
 // Articles Routes
 
 router.get("/api/scrape", (req, res) => {
-	articlesController.add((err, docs) => {
-		if (!docs || docs.insertedCount === 0) {
+	articlesController.add((data) => {
+		if (!data || data.name == "BulkWriteError") {
 			res.json({
-				Error: err,
-				message: "No new articles today. Check back tomorrow!"
+				message: "No new articles today. Check back tomorrow!",
 			});
 		} else {
 			res.json({
-				Error: err,
-				message: `${docs.insertedCount} new articles were succesfully added!`
+				message: `${data.length} new articles were succesfully added!`
 			});
 		}
 	});
@@ -37,7 +35,9 @@ router.get("/api/articles", (req, res) => {
 router.get("/api/populatedarticle/:id", (req, res) => {
 	articlesController.populated(
 		req.params.id,
-		data => res.json(data));
+		data => {
+			data ? res.json(data) : res.json({ Error: "Article not found" });
+		});
 });
 
 router.put("/api/save/:id", (req, res) => {

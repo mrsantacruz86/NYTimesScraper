@@ -3,14 +3,18 @@ const Article = require('../models/Article');
 
 module.exports = {
   add: cb => {
-    scrape(data => {
-      let options = { ordered: false };
-      Article.collection.insertMany(data, options,
-        (err, docs) => cb(err, docs));
+    scrape(list => {
+      Article.insertMany(list)
+        .then(data => cb(data))
+        .catch(err => cb(err));
     });
   },
 
-  delete: (query, cb) => Article.remove(query, cb),
+  delete: (query, cb) => {
+    Article.remove(query)
+      .then(data => cb(data))
+      .catch(err => cb(err));
+  },
 
   get: (query, cb) => {
     Article.find(query)
@@ -21,9 +25,9 @@ module.exports = {
 
   update: (id, query, cb) => {
     Article.findOneAndUpdate(
-      {_id: id},
+      { _id: id },
       { $set: query },
-      {new: true})
+      { new: true })
       .then(data => cb(data))
       .catch(err => cb(err));
   },
