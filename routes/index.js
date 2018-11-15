@@ -47,10 +47,8 @@ router.put("/api/save/:id", (req, res) => {
 		data => res.json(data));
 });
 
-router.delete("/api/articles/:id", (req, res) => {
-	var query = {};
-	query._id = req.params.id;
-	articlesController.delete(query, (err, data) => res.json(data));
+router.delete("/api/articles", (req, res) => {
+	articlesController.delete(req.body,  data => res.json(data));
 });
 
 // Notes Routes
