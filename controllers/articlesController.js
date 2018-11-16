@@ -23,10 +23,10 @@ module.exports = {
       .catch(err => cb(err));
   },
 
-  update: (id, query, cb) => {
+  update: (data, cb) => {
     Article.findOneAndUpdate(
-      { _id: id },
-      { $set: query },
+      { _id: data._id },
+      { $set: data },
       { new: true })
       .then(data => cb(data))
       .catch(err => cb(err));

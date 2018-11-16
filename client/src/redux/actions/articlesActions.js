@@ -7,7 +7,10 @@ import {
   RECEIVE_ARTICLES,
   RECEIVE_ERROR,
   ARTICLE_SAVED,
-  RECEIVE_ONSAVE_ERROR
+  RECEIVE_ONSAVE_ERROR,
+  DELETE_ARTICLE,
+  ARTICLE_DELETED,
+  RECEIVE_ONDELETE_ERROR
 } from "./actionTypes";
 //Actions to fetch articles
 //-------------------------
@@ -40,7 +43,7 @@ export const receiveOnSaveError = () => ({ type: RECEIVE_ONSAVE_ERROR });
 export const asyncSaveArticle = (id) => {
   return dispatch => {
     store.dispatch(saveArticle());
-    return API.saveArticle(id)
+    return API.saveArticle({_id: id, saved: true})
     .then( response => {
       if (response.status === 200) {
         dispatch(articleSaved());
@@ -63,5 +66,27 @@ export const scrapeArticles = () => {
       dispatch(asyncFetchArticles());
     })
     .catch( err => console.log(err));
+  };
+};
+
+// Delete Articles
+//--------------------------------------------------
+export const deleteArticle = () => ({ type: DELETE_ARTICLE });
+export const articleDeleted = () => ({ type: ARTICLE_DELETED });
+export const receiveOnDeleteError = () => ({ type: RECEIVE_ONDELETE_ERROR });
+
+export const asyncDeleteArticle = (id) => {
+  return dispatch => {
+    store.dispatch(deleteArticle());
+    return API.deleteArticle({ _id: id})
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(articleDeleted());
+          dispatch(asyncFetchArticles());
+        } else {
+          dispatch(receiveOnSaveError());
+        }
+      })
+      .catch(err => console.log(err));
   };
 };

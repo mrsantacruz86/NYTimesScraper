@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { asyncSaveArticle } from '../redux/actions/articlesActions';
+import { asyncSaveArticle, asyncDeleteArticle } from '../redux/actions/articlesActions';
 
 class Article extends Component {
 
@@ -34,7 +34,9 @@ class Article extends Component {
 							<button
 								type="button"
 								className={`btn btn-sm btn-danger btn-delete`}
-								onClick={() => console.log("Click on Delete: " + this.props._id)}
+								onClick={() => {
+									this.props.dispatch(asyncDeleteArticle(this.props._id));
+								}}
 							>
 								Delete
 							</button>

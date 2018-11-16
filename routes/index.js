@@ -39,10 +39,9 @@ router.get("/api/article/:id", (req, res) => {
 		});
 });
 
-router.put("/api/save/:id", (req, res) => {
+router.put("/api/articles", (req, res) => {
 	articlesController.update(
-		req.params.id,
-		{ saved: true },
+		req.body,
 		data => res.json(data));
 });
 

@@ -8,13 +8,13 @@ export default {
 	getArticles: () => axios.get("/api/articles"),
 	getOneArticle: (id) => axios.get(`/api/article/${id}`),
 	scrapeArticles: () => axios.get("/api/scrape"),
-	saveArticle: (id) => axios.put(`/api/save/${id}`),
-	deleteArticle: () => axios.delete(`/api/articles`),
+	saveArticle: (article) => axios.put("/api/articles", article),
+	deleteArticle: (article) => axios.delete("/api/articles", article),
 
 	// Notes Requests
-	addNote: () => axios.post("/api/notes"),
+	addNote: (note) => axios.post("/api/notes", note),
 	getNotes: (articleId) => axios.get(`/api/notes/${articleId}`),
-	updateNote: () => axios.put("/api/notes"),
-	deleteNote: () => axios.delete("/api/notes")
+	updateNote: (note) => axios.put("/api/notes", note),
+	deleteNote: (note) => axios.delete("/api/notes", note)
 };
 
