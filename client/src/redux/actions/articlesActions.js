@@ -2,15 +2,15 @@ import store from '../store';
 import API from '../../js/API';
 
 import {
-  SAVE_ARTICLE,
   FETCH_ARTICLES,
   RECEIVE_ARTICLES,
   RECEIVE_ERROR,
+  SAVE_ARTICLE,
   ARTICLE_SAVED,
   RECEIVE_ONSAVE_ERROR,
-  DELETE_ARTICLE,
-  ARTICLE_DELETED,
-  RECEIVE_ONDELETE_ERROR
+  // DELETE_ARTICLE,
+  // ARTICLE_DELETED,
+  // RECEIVE_ONDELETE_ERROR
 } from "./actionTypes";
 //Actions to fetch articles
 //-------------------------
@@ -71,20 +71,21 @@ export const scrapeArticles = () => {
 
 // Delete Articles
 //--------------------------------------------------
-export const deleteArticle = () => ({ type: DELETE_ARTICLE });
-export const articleDeleted = () => ({ type: ARTICLE_DELETED });
-export const receiveOnDeleteError = () => ({ type: RECEIVE_ONDELETE_ERROR });
+// export const deleteArticle = () => ({ type: DELETE_ARTICLE });
+// export const articleDeleted = () => ({ type: ARTICLE_DELETED });
+// export const receiveOnDeleteError = () => ({ type: RECEIVE_ONDELETE_ERROR });
 
 export const asyncDeleteArticle = (id) => {
   return dispatch => {
-    store.dispatch(deleteArticle());
-    return API.deleteArticle({ _id: id})
+    console.log(id);
+    // store.dispatch(deleteArticle());
+    return API.deleteArticle(id)
       .then(response => {
         if (response.status === 200) {
-          dispatch(articleDeleted());
+          // dispatch(articleDeleted());
           dispatch(asyncFetchArticles());
         } else {
-          dispatch(receiveOnSaveError());
+          console.log("Error deleting article");
         }
       })
       .catch(err => console.log(err));

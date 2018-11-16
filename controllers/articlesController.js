@@ -11,7 +11,7 @@ module.exports = {
   },
 
   delete: (query, cb) => {
-    Article.remove(query)
+    Article.findOneAndRemove(query)
       .then(data => cb(data))
       .catch(err => cb(err));
   },

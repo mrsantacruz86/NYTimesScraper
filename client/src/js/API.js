@@ -9,7 +9,7 @@ export default {
 	getOneArticle: (id) => axios.get(`/api/article/${id}`),
 	scrapeArticles: () => axios.get("/api/scrape"),
 	saveArticle: (article) => axios.put("/api/articles", article),
-	deleteArticle: (article) => axios.delete("/api/articles", article),
+	deleteArticle: (id) => axios.delete("/api/articles", {_id:id}),
 
 	// Notes Requests
 	addNote: (note) => axios.post("/api/notes", note),

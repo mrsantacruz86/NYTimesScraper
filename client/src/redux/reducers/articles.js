@@ -6,7 +6,10 @@ import {
   ARTICLE_SAVED,
   RECEIVE_ONSAVE_ERROR,
   VIEW_SAVED,
-  VIEW_UNSAVED
+  VIEW_UNSAVED,
+  // DELETE_ARTICLE,
+  // ARTICLE_DELETED,
+  // RECEIVE_ONDELETE_ERROR
 } from "../actions/actionTypes";
 
 const initialState = {
