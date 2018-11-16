@@ -22,14 +22,16 @@ module.exports = {
 	},
 
 	get: (query, cb) => {
-		Note.find(query, (err, response) => {
-			if (err) return console.log(err);
-			cb(response);
-		});
+		Note.find(query)
+		.then(note => cb(note))
+		.catch(err => cb(err));
 	},
 
-	update: (query, cb) => {
-		Note.update({ _id: query._id }, { $set: query }, {}, cb)
-			.exec((err, doc) => cb(doc));
+	update: (data, cb) => {
+		Note.update(
+			{ _id: data._id },
+			{ $set: data })
+			.then(note => cb(note))
+			.catch(err => cb(err));
 	}
 };

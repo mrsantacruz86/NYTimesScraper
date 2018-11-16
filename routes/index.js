@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { articlesController, notesController } = require('../controllers');
 
+// const  path = require('path');
+
+// If no API routes are hit, send the React app
+// router.use(function (req, res) {
+// 	res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
+
 // Articles Routes
 
 router.get("/api/scrape", (req, res) => {
@@ -18,21 +25,13 @@ router.get("/api/scrape", (req, res) => {
 	});
 });
 
-// const  path = require('path');
-
-// If no API routes are hit, send the React app
-// router.use(function (req, res) {
-// 	res.sendFile(path.join(__dirname, "../client/build/index.html"));
-// });
-
-
 router.get("/api/articles", (req, res) => {
 	articlesController.get({}, data => {
 		res.json(data);
 	});
 });
 
-router.get("/api/populatedarticle/:id", (req, res) => {
+router.get("/api/article/:id", (req, res) => {
 	articlesController.populated(
 		req.params.id,
 		data => {
@@ -68,7 +67,7 @@ router.post("/api/notes", (req, res) => {
 
 router.put("/api/notes", (req, res) => {
 	let note = req.body;
-	articlesController.addNote(note._articleId, note._id, data => res.json(data));
+	notesController.update(note, data => res.json(data));
 });
 
 router.delete("/api/notes", (req, res) => {
