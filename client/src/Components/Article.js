@@ -15,7 +15,7 @@ class Article extends Component {
 								className={`btn btn-sm btn-success btn-save`}
 								// onClick={() => this.props.onSaveArticle(this.props._id)}
 								onClick={() => {
-									console.log("the save button has been clicked", this.props._id);
+									// console.log("the save button has been clicked", this.props._id);
 									this.props.dispatch(asyncSaveArticle(this.props._id));
 								}}
 							>
