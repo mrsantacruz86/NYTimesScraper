@@ -11,7 +11,7 @@ import {
   // DELETE_ARTICLE,
   // ARTICLE_DELETED,
   // RECEIVE_ONDELETE_ERROR
-} from "./actionTypes";
+} from "./types";
 //Actions to fetch articles
 //-------------------------
 export const fetchArticles = () => ({ type: FETCH_ARTICLES });

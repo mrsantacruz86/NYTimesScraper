@@ -1,55 +1,61 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
 import { asyncSaveArticle, asyncDeleteArticle } from '../redux/actions/articlesActions';
 
 class Article extends Component {
 
 	render() {
 		return (
-			<li className="list-group-item" data-_id={this.props._id}>
-				{
-					!this.props.saved ?
-						<div>
-							<button
-								type="button"
-								className={`btn btn-sm btn-success btn-save`}
-								// onClick={() => this.props.onSaveArticle(this.props._id)}
-								onClick={() => {
-									// console.log("the save button has been clicked", this.props._id);
-									this.props.dispatch(asyncSaveArticle(this.props._id));
-								}}
-							>
-								Save
-							</button>
-						</div>
-						:
-						<div>
-							<button
-								type="button"
-								className={`btn btn-sm btn-primary btn-notes`}
-								onClick={() => console.log("Click on Notes: " + this.props._id)}
-							>
-								Notes
-							</button>
-							<button
-								type="button"
-								className={`btn btn-sm btn-danger btn-delete`}
-								onClick={() => {
-									this.props.dispatch(asyncDeleteArticle(this.props._id));
-								}}
-							>
-								Delete
-							</button>
-						</div>
-				}
-				<a className="article-link" href={this.props.link} target="_blank">
-					<h4 className="list-group-item-heading">{this.props.title} </h4>
-				</a>
-				<p className="article-summary list-group-item-text">{this.props.summary}</p>
-			</li>
+			<ListGroupItem data-_id={this.props._id}>
+				<ListGroupItemHeading>
+					<a className="article-link" href={this.props.link} target="_blank">
+						<h4 className="list-group-item-heading">{this.props.title} </h4>
+					</a>
+				</ListGroupItemHeading>
+				<ListGroupItemText className="article-summary">
+					<p>{this.props.summary}</p>
+					{
+						!this.props.saved ?
+							<div>
+								<Button
+									color="primary"
+									size="sm"
+									className={`btn-save`}
+									onClick={() => this.props.asyncSaveArticle(this.props._id)}
+								>
+									Save
+								</Button>
+							</div>
+							:
+							<div>
+								<Button
+									color="secondary"
+									size="sm"
+									className={`btn-notes`}
+									onClick={() => console.log("Click on Notes: " + this.props._id)}
+								>
+									Notes
+								</Button> 
+								{"\t"}
+								<Button
+									color="danger"
+									size="sm"
+									className={`btn-delete`}
+									onClick={() => this.props.asyncDeleteArticle(this.props._id)}
+								>
+									Delete
+							</Button>
+							</div>
+					}
+				</ListGroupItemText>
+			</ListGroupItem>
 		);
 	}
 }
-const mapStateToProps = state => ({...state});
+const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps)(Article);
+export default connect(
+	mapStateToProps,
+	{ asyncSaveArticle, asyncDeleteArticle }
+)(Article);
