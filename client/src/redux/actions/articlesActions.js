@@ -1,71 +1,75 @@
 import store from '../store';
 import API from '../../js/API';
+import axios from 'axios';
 
 import {
-  FETCH_ARTICLES,
-  RECEIVE_ARTICLES,
+  IS_LOADING,
+  GET_ARTICLES,
   RECEIVE_ERROR,
   SAVE_ARTICLE,
-  ARTICLE_SAVED,
-  RECEIVE_ONSAVE_ERROR,
   // DELETE_ARTICLE,
   // ARTICLE_DELETED,
-  // RECEIVE_ONDELETE_ERROR
 } from "./types";
-//Actions to fetch articles
-//-------------------------
-export const fetchArticles = () => ({ type: FETCH_ARTICLES });
-export const receiveArticles = data => ({ type: RECEIVE_ARTICLES, data });
-export const receiveError = () => ({ type: RECEIVE_ERROR });
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
-
-export const asyncFetchArticles = () => {
-  store.dispatch(fetchArticles());
-  return (dispatch) => {
-    API.getArticles()
-      .then(response => {
-        if (response.status === 200 && response.data.length > 0) {
-          dispatch(receiveArticles(response.data));
-        } else {
-          throw new Error("No articles found. Please scrape some articles now.");
-        }
-      })
-      .catch(err => dispatch(receiveError()));
+//Loading data
+export const isLoading = () => {
+  return {
+    type: IS_LOADING
+  };
+};
+//Receive an error
+export const receiveError = () => {
+  return {
+    type: RECEIVE_ERROR
   };
 };
 
-//Actions to save an article
-//---------------------------
-export const saveArticle = () => ({ type: SAVE_ARTICLE });
-export const articleSaved = () => ({ type: ARTICLE_SAVED });
-export const receiveOnSaveError = () => ({ type: RECEIVE_ONSAVE_ERROR });
+// Get Articles from API
+export const getArticles = () => dispatch => {
+  dispatch(isLoading());
+  axios.get("/api/articles")
+    .then(res =>
+      dispatch({
+        type: GET_ARTICLES,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(receiveError());
+      console.log(err);
+    });
+};
 
-export const asyncSaveArticle = (id) => {
-  return dispatch => {
-    store.dispatch(saveArticle());
-    return API.saveArticle({_id: id, saved: true})
-    .then( response => {
-      if (response.status === 200) {
-        dispatch(articleSaved());
-        dispatch(asyncFetchArticles());
-      } else {
-        dispatch(receiveOnSaveError());
-      }
+// Get Populated articles passing the id
+export const getPopulatedArticle = () => {
+
+};
+
+//Save an article;
+export const saveArticle = (id) => dispatch => {
+  dispatch(isLoading());
+  axios.put("/api/articles", { _id: id, saved: true })
+    .then(res => {
+      dispatch({
+        type: SAVE_ARTICLE,
+        payload: res.data
+      });
     })
     .catch(err => console.log(err));
-  };
 };
+
 
 // Actions to scrape articles and add them to the DB
 //--------------------------------------------------
 export const scrapeArticles = () => {
   return dispatch => {
     return API.scrapeArticles()
-    .then(response => {
-      console.log(response);
-      dispatch(asyncFetchArticles());
-    })
-    .catch( err => console.log(err));
+      .then(response => {
+        console.log(response);
+        dispatch(getArticles());
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -83,7 +87,7 @@ export const asyncDeleteArticle = (id) => {
       .then(response => {
         if (response.status === 200) {
           // dispatch(articleDeleted());
-          dispatch(asyncFetchArticles());
+          dispatch(getArticles());
         } else {
           console.log("Error deleting article");
         }

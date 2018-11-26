@@ -6,7 +6,7 @@ import Content from './Components/Content';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import { Container } from 'reactstrap';
-import { asyncFetchArticles } from './redux/actions/articlesActions';
+import { getArticles } from './redux/actions/articlesActions';
 
 class App extends Component {
 
@@ -35,8 +35,6 @@ class App extends Component {
           {/* <Route component={NoMatch} /> */}
           </Switch>
         </Router>
-
-        
       </Container>
     );
   }
@@ -49,7 +47,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllArticles: () => {
-      return dispatch(asyncFetchArticles());
+      return dispatch(getArticles());
     }
   };
 };

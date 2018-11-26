@@ -1,55 +1,47 @@
 import {
-  FETCH_ARTICLES,
-  RECEIVE_ARTICLES,
+  IS_LOADING,
+  GET_ARTICLES,
   RECEIVE_ERROR,
   SAVE_ARTICLE,
   ARTICLE_SAVED,
   RECEIVE_ONSAVE_ERROR
   // DELETE_ARTICLE,
   // ARTICLE_DELETED,
-  // RECEIVE_ONDELETE_ERROR
 } from "../actions/types";
 
 const initialState = {
   data: [],
-  isFetching: false,
+  isLoading: false,
   isError: false,
-  savingArticle: false,
-  errorOnSave: false
+  errorOnSave: false,
+  selectedArticle: {}
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case FETCH_ARTICLES:
-      return Object.assign({}, state, {
-        isFetching: true,
-        data: [],
-        isError: false
-      });
-    case RECEIVE_ARTICLES:
-      return Object.assign({}, state, {
-        data: action.data,
-        isFetching: false,
-        isError: false
-      });
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      };
     case RECEIVE_ERROR:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isError: true,
-        isFetching: false
-      });
+        isLoading: false
+      };
+    case GET_ARTICLES:
+      return {
+        ...state,
+        data: action.payload,
+        isLoading: false,
+        isError: false
+      };
     case SAVE_ARTICLE:
-      return Object.assign({}, state, {
-        savingArticle: true,
-      });
-    case ARTICLE_SAVED:
-      return Object.assign({}, state, {
-        savingArticle: false,
-        errorOnSave: false
-      });
-    case RECEIVE_ONSAVE_ERROR:
-      return Object.assign({}, state, {
-        savingArticle: false,
-        errorOnSave: true
+      return {
+        ...state,
+        data.map()
+        isLoading: false,
       });
     default:
       return state;

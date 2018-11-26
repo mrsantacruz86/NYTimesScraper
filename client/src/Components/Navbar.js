@@ -7,6 +7,7 @@ import {
 	Nav,
 	NavItem,
 	NavLink,
+	Button
 	// Container
 } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -24,7 +25,7 @@ class AppNavbar extends Component {
 	}
 	handleScrape = (e) => {
 		e.preventDefault();
-		this.props.dispatch(scrapeArticles());
+		this.props.scrapeArticles();
 	}
 
 	render() {
@@ -48,11 +49,17 @@ class AppNavbar extends Component {
 								</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink
+								{/* <NavLink> */}
+								<Button
+									color="success"
+									// size="sm"
+									outline
 									onClick={(e) => this.handleScrape}
 								>
 									Scrape Artiles
-								</NavLink>
+									</Button>
+
+								{/* </NavLink> */}
 							</NavItem>
 						</Nav>
 					</Collapse>
@@ -64,4 +71,7 @@ class AppNavbar extends Component {
 }
 
 const mapStateToProps = state => ({ ...state });
-export default connect(mapStateToProps)(AppNavbar);
+export default connect(
+	mapStateToProps,
+	{ scrapeArticles }
+)(AppNavbar);

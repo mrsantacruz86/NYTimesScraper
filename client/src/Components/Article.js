@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
+import NotesModal from './NotesModal';
 import { asyncSaveArticle, asyncDeleteArticle } from '../redux/actions/articlesActions';
 
 class Article extends Component {
@@ -29,14 +30,19 @@ class Article extends Component {
 							</div>
 							:
 							<div>
-								<Button
+								{/* <Button
 									color="secondary"
 									size="sm"
 									className={`btn-notes`}
 									onClick={() => console.log("Click on Notes: " + this.props._id)}
 								>
 									Notes
-								</Button> 
+								</Button>  */}
+								<NotesModal 
+									buttonLabel="Notes"
+									className="notes-modal"
+									articleId={this.props._id}
+								/>
 								{"\t"}
 								<Button
 									color="danger"
