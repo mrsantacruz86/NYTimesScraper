@@ -61,13 +61,12 @@ export const saveArticle = (id) => dispatch => {
 export const scrapeArticles = () => dispatch => {
   dispatch(isLoading());
   axios.get("/api/scrape")
-    .then(response => {
-      console.log(response);
+    .then(res => {
+      console.log(res);
       dispatch({
-        type: DELETE_ARTICLE,
-        payload: response.data
+        type: SCRAPE_ARTICLES,
+        payload: res.data
       });
-      dispatch(getArticles());
     })
     .catch(err => console.log(err));
 };

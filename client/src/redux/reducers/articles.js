@@ -7,6 +7,7 @@ import {
   DELETE_ARTICLE,
   SCRAPE_ARTICLES,
 } from "../actions/types";
+import Article from "../../Components/Article";
 
 const initialState = {
   data: [],
@@ -30,9 +31,11 @@ export default function (state = initialState, action) {
         isLoading: false
       };
     case SCRAPE_ARTICLES:
+    const newData = [...action.payload, ...state.data];
       return {
         ...state,
-        isLoading: true
+        data: newData,
+        isLoading: false
       };
     case GET_ARTICLES:
       return {
@@ -43,17 +46,23 @@ export default function (state = initialState, action) {
       };
     case SAVE_ARTICLE:
       const updated = state.data.map(article => {
-        console.log(article);
-        console.log(action.payload);
         if (article._id === action.payload._id) {
           return { ...article, saved: true };
         }
         return article;
       });
-      return updated;
+      return {
+        ...state,
+        data: updated,
+        isLoading: false
+      };
 
     case DELETE_ARTICLE:
-      const deleted = state.data.filter(article => article._id !== action.payload._id);
+      const deleted = state.data.filter(article => {
+        if(article._id !== action.payload._id){
+          return article;
+        }
+      });
       return {
         ...state,
         data: deleted,
