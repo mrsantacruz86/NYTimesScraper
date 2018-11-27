@@ -1,12 +1,11 @@
+/* eslint-disable no-case-declarations */
 import {
   IS_LOADING,
   GET_ARTICLES,
   RECEIVE_ERROR,
   SAVE_ARTICLE,
-  ARTICLE_SAVED,
-  RECEIVE_ONSAVE_ERROR
-  // DELETE_ARTICLE,
-  // ARTICLE_DELETED,
+  DELETE_ARTICLE,
+  SCRAPE_ARTICLES,
 } from "../actions/types";
 
 const initialState = {
@@ -30,6 +29,11 @@ export default function (state = initialState, action) {
         isError: true,
         isLoading: false
       };
+    case SCRAPE_ARTICLES:
+      return {
+        ...state,
+        isLoading: true
+      };
     case GET_ARTICLES:
       return {
         ...state,
@@ -38,11 +42,24 @@ export default function (state = initialState, action) {
         isError: false
       };
     case SAVE_ARTICLE:
+      const updated = state.data.map(article => {
+        console.log(article);
+        console.log(action.payload);
+        if (article._id === action.payload._id) {
+          return { ...article, saved: true };
+        }
+        return article;
+      });
+      return updated;
+
+    case DELETE_ARTICLE:
+      const deleted = state.data.filter(article => article._id !== action.payload._id);
       return {
         ...state,
-        data.map()
-        isLoading: false,
-      });
+        data: deleted,
+        isLoading: false
+      };
+
     default:
       return state;
   }

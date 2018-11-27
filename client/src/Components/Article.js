@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
 import NotesModal from './NotesModal';
-import { asyncSaveArticle, asyncDeleteArticle } from '../redux/actions/articlesActions';
+import { saveArticle, deleteArticle } from '../redux/actions/articlesActions';
 
 class Article extends Component {
+
+	onDelete = id => {
+		this.props.deleteArticle(id)
+	}
 
 	render() {
 		return (
@@ -23,7 +27,7 @@ class Article extends Component {
 									color="primary"
 									size="sm"
 									className={`btn-save`}
-									onClick={() => this.props.asyncSaveArticle(this.props._id)}
+									onClick={() => this.props.saveArticle(this.props._id)}
 								>
 									Save
 								</Button>
@@ -48,7 +52,7 @@ class Article extends Component {
 									color="danger"
 									size="sm"
 									className={`btn-delete`}
-									onClick={() => this.props.asyncDeleteArticle(this.props._id)}
+									onClick={this.onDelete.bind(this, this.props._id)}
 								>
 									Delete
 							</Button>
@@ -63,5 +67,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ asyncSaveArticle, asyncDeleteArticle }
+	{ saveArticle, deleteArticle }
 )(Article);

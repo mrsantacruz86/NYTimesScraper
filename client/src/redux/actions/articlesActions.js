@@ -1,4 +1,3 @@
-import store from '../store';
 import API from '../../js/API';
 import axios from 'axios';
 
@@ -7,10 +6,9 @@ import {
   GET_ARTICLES,
   RECEIVE_ERROR,
   SAVE_ARTICLE,
-  // DELETE_ARTICLE,
-  // ARTICLE_DELETED,
+  DELETE_ARTICLE,
+  SCRAPE_ARTICLES
 } from "./types";
-import { dispatch } from 'rxjs/internal/observable/pairs';
 
 //Loading data
 export const isLoading = () => {
@@ -59,39 +57,32 @@ export const saveArticle = (id) => dispatch => {
     .catch(err => console.log(err));
 };
 
-
 // Actions to scrape articles and add them to the DB
-//--------------------------------------------------
-export const scrapeArticles = () => {
-  return dispatch => {
-    return API.scrapeArticles()
-      .then(response => {
-        console.log(response);
-        dispatch(getArticles());
-      })
-      .catch(err => console.log(err));
-  };
+export const scrapeArticles = () => dispatch => {
+  dispatch(isLoading());
+  axios.get("/api/scrape")
+    .then(response => {
+      console.log(response);
+      dispatch({
+        type: DELETE_ARTICLE,
+        payload: response.data
+      });
+      dispatch(getArticles());
+    })
+    .catch(err => console.log(err));
 };
 
 // Delete Articles
-//--------------------------------------------------
-// export const deleteArticle = () => ({ type: DELETE_ARTICLE });
-// export const articleDeleted = () => ({ type: ARTICLE_DELETED });
-// export const receiveOnDeleteError = () => ({ type: RECEIVE_ONDELETE_ERROR });
+export const deleteArticle = (id) => dispatch => {
+  console.log(id);
+  dispatch(isLoading());
+  axios.delete("/api/articles", { _id: id })
+    .then(response => {
+      dispatch({
+        type: DELETE_ARTICLE,
+        payload: response.data
+      });
 
-export const asyncDeleteArticle = (id) => {
-  return dispatch => {
-    console.log(id);
-    // store.dispatch(deleteArticle());
-    return API.deleteArticle(id)
-      .then(response => {
-        if (response.status === 200) {
-          // dispatch(articleDeleted());
-          dispatch(getArticles());
-        } else {
-          console.log("Error deleting article");
-        }
-      })
-      .catch(err => console.log(err));
-  };
+    })
+    .catch(err => console.log(err));
 };

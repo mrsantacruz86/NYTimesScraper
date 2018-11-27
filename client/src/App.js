@@ -16,13 +16,13 @@ class App extends Component {
 
   render() {
     const saved = () => <Content
-          articles={this.props.articles.data.filter(item => item.saved)}
-          filter={this.props.articles.filterSaved}
-        />;
+      articles={this.props.articles.data.filter(item => item.saved)}
+      filter={this.props.articles.filterSaved}
+    />;
     const unsaved = () => <Content
-          articles={this.props.articles.data.filter(item => !item.saved)}
-          filter={this.props.articles.filterSaved}
-        />;
+      articles={this.props.articles.data.filter(item => !item.saved)}
+      filter={this.props.articles.filterSaved}
+    />;
     return (
       <Container fluid className="App">
         <Navbar />
@@ -31,8 +31,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={unsaved} />
             <Route exact path="/unsaved" component={unsaved} />
-          <Route exact path="/saved" component={saved} />
-          {/* <Route component={NoMatch} /> */}
+            <Route exact path="/saved" component={saved} />
+            {/* <Route component={NoMatch} /> */}
           </Switch>
         </Router>
       </Container>
