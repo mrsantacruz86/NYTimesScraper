@@ -34,16 +34,7 @@ class Article extends Component {
 							</div>
 							:
 							<div>
-								{/* <Button
-									color="secondary"
-									size="sm"
-									className={`btn-notes`}
-									onClick={() => console.log("Click on Notes: " + this.props._id)}
-								>
-									Notes
-								</Button>  */}
 								<NotesModal 
-									buttonLabel="Notes"
 									className="notes-modal"
 									articleId={this.props._id}
 								/>

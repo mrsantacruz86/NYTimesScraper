@@ -26,7 +26,7 @@ class NotesModal extends Component {
 	render() {
 		return (
 			<div>
-				<Button color="primary" size="sm" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+				<Button color="primary" size="sm" onClick={this.toggle}>Notes</Button>
 				<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 					<ModalHeader toggle={this.toggle}>Article: {this.props.articleId}</ModalHeader>
 					<ModalBody>

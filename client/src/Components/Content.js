@@ -15,8 +15,8 @@ class Content extends Component {
 						<CardTitle>List of Articles</CardTitle>
 						<CardText>
 							<ListGroup>
-								{this.props.articles.map(item => (
-									<Article {...item} key={item._id} />
+								{this.props.articles.map((item, i) => (
+									<Article {...item} key={item._id} index={i}/>
 								))}
 							</ListGroup>
 						</CardText>
