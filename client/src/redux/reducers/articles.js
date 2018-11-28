@@ -9,8 +9,6 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  // unsavedArticles: [],
-  // savedArticles: [],
   data: [],
   isLoading: false,
   isError: false,
@@ -35,10 +33,9 @@ export default (state = initialState, action) => {
       };
 
     case SCRAPE_ARTICLES:
-      const newData = [...action.payload, ...state.data];
       return {
         ...state,
-        unsavedArticles: newData,
+        data: [...action.payload, ...state.data],
         isLoading: false
       };
 
@@ -51,7 +48,7 @@ export default (state = initialState, action) => {
       };
 
     case SAVE_ARTICLE:
-      const updated = state.unsavedArticles.map(article => {
+      const updated = state.data.map(article => {
         if (article._id === action.payload._id) {
           return { ...article, saved: true };
         }
@@ -64,12 +61,12 @@ export default (state = initialState, action) => {
       };
 
     case DELETE_ARTICLE:
-      const deleted = state.data.filter(
+      const filtered = state.data.filter(
         article => article._id !== action.payload._id
       );
       return {
         ...state,
-        data: deleted,
+        data: filtered,
         isLoading: false
       };
 
