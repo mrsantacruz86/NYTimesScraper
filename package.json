@@ -1,5 +1,5 @@
 {
-  "name": "nyt-scaper",
+  "name": "mongo-scraper",
   "version": "1.2.0",
   "description": "New York Times web scraper.",
   "main": "server.js",

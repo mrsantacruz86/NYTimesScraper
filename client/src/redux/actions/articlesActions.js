@@ -1,4 +1,3 @@
-import API from '../../js/API';
 import axios from 'axios';
 
 import {
@@ -40,9 +39,9 @@ export const getArticles = () => dispatch => {
 };
 
 // Get Populated articles passing the id
-export const getPopulatedArticle = () => {
+// export const getPopulatedArticle = () => {
 
-};
+// };
 
 //Save an article;
 export const saveArticle = (id) => dispatch => {
@@ -62,7 +61,7 @@ export const scrapeArticles = () => dispatch => {
   dispatch(isLoading());
   axios.get("/api/scrape")
     .then(res => {
-      console.log(res);
+      // console.log(res);
       if(res.data.err){
         dispatch(getArticles());
       } else{

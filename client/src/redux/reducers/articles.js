@@ -9,66 +9,64 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  unsavedArticles: [],
-  savedArticles: [],
+  // unsavedArticles: [],
+  // savedArticles: [],
+  data: [],
   isLoading: false,
   isError: false,
   errorOnSave: false,
   selectedArticle: {}
 };
 
-export default function (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
+
     case IS_LOADING:
       return {
         ...state,
         isLoading: true
       };
+
     case RECEIVE_ERROR:
       return {
         ...state,
         isError: true,
         isLoading: false
       };
+
     case SCRAPE_ARTICLES:
-      const newData = [...action.payload, ...state.unsavedArticles];
+      const newData = [...action.payload, ...state.data];
       return {
         ...state,
         unsavedArticles: newData,
         isLoading: false
       };
+
     case GET_ARTICLES:
-      const saved = action.payload.filter(item => item.saved);
-      const unsaved = action.payload.filter(item => !item.saved);
       return {
         ...state,
-        unsavedArticles: unsaved,
-        savedArticles: saved,
+        data: action.payload,
         isLoading: false,
         isError: false
       };
+
     case SAVE_ARTICLE:
-      let updatedSavedList = [];
-      const updated = state.unsavedArticles.filter(article => {
+      const updated = state.unsavedArticles.map(article => {
         if (article._id === action.payload._id) {
-          const temp = { ...article, saved: true };
-          updatedSavedList = [temp, ...state.savedArticles];
+          return { ...article, saved: true };
         }
         return article;
       });
       return {
         ...state,
-        unsavedArticles: updated,
-        savedArticles: updatedSavedList,
+        data: updated,
         isLoading: false
       };
 
     case DELETE_ARTICLE:
-      const deleted = state.data.filter(article => {
-        if (article._id !== action.payload._id) {
-          return article;
-        }
-      });
+      const deleted = state.data.filter(
+        article => article._id !== action.payload._id
+      );
       return {
         ...state,
         data: deleted,
