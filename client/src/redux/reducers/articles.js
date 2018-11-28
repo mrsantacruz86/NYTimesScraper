@@ -7,10 +7,10 @@ import {
   DELETE_ARTICLE,
   SCRAPE_ARTICLES,
 } from "../actions/types";
-import Article from "../../Components/Article";
 
 const initialState = {
-  data: [],
+  unsavedArticles: [],
+  savedArticles: [],
   isLoading: false,
   isError: false,
   errorOnSave: false,
@@ -31,35 +31,41 @@ export default function (state = initialState, action) {
         isLoading: false
       };
     case SCRAPE_ARTICLES:
-    const newData = [...action.payload, ...state.data];
+      const newData = [...action.payload, ...state.unsavedArticles];
       return {
         ...state,
-        data: newData,
+        unsavedArticles: newData,
         isLoading: false
       };
     case GET_ARTICLES:
+      const saved = action.payload.filter(item => item.saved);
+      const unsaved = action.payload.filter(item => !item.saved);
       return {
         ...state,
-        data: action.payload,
+        unsavedArticles: unsaved,
+        savedArticles: saved,
         isLoading: false,
         isError: false
       };
     case SAVE_ARTICLE:
-      const updated = state.data.map(article => {
+      let updatedSavedList = [];
+      const updated = state.unsavedArticles.filter(article => {
         if (article._id === action.payload._id) {
-          return { ...article, saved: true };
+          const temp = { ...article, saved: true };
+          updatedSavedList = [temp, ...state.savedArticles];
         }
         return article;
       });
       return {
         ...state,
-        data: updated,
+        unsavedArticles: updated,
+        savedArticles: updatedSavedList,
         isLoading: false
       };
 
     case DELETE_ARTICLE:
       const deleted = state.data.filter(article => {
-        if(article._id !== action.payload._id){
+        if (article._id !== action.payload._id) {
           return article;
         }
       });

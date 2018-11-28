@@ -12,16 +12,8 @@ const { articlesController, notesController } = require('../controllers');
 // Articles Routes
 
 router.get("/api/scrape", (req, res) => {
-	articlesController.add((data) => {
-		if (!data || data.name == "BulkWriteError") {
-			res.json({
-				message: "No new articles today. Check back tomorrow!",
-			});
-		} else {
-			res.json({
-				message: `${data.length} new articles were succesfully added!`
-			});
-		}
+	articlesController.add(data => {
+		res.json(data);
 	});
 });
 
@@ -46,7 +38,7 @@ router.put("/api/articles", (req, res) => {
 });
 
 router.delete("/api/articles", (req, res) => {
-	articlesController.delete(req.body,  data => res.json(data));
+	articlesController.delete(req.body, data => res.json(data));
 });
 
 // Notes Routes

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
 	Collapse,
 	Navbar,
@@ -32,35 +33,29 @@ class AppNavbar extends Component {
 		return (
 			<div>
 				<Navbar color="dark" dark expand="sm" fixed="top">
-					<NavbarBrand href="/">
+					<NavbarBrand tag={Link} to="/">
 						<i className="far fa-newspaper"></i> NEWS SCRAPER
 					</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink href="/unsaved">
+								<NavLink tag={Link} to="/" activeClassName="active">
 									Home
 								</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink href="/saved">
+								<NavLink tag={Link} to="/saved" activeClassName="active">
 									Saved Articles
 								</NavLink>
 							</NavItem>
-							<NavItem>
-								{/* <NavLink> */}
-								<Button
-									color="success"
-									// size="sm"
-									outline
-									onClick={(e) => this.handleScrape}
-								>
-									Scrape Artiles
-									</Button>
-
-								{/* </NavLink> */}
-							</NavItem>
+							<Button
+								color="success"
+								outline
+								onClick={this.handleScrape}
+							>
+								Scrape Artiles
+							</Button>
 						</Nav>
 					</Collapse>
 				</Navbar>

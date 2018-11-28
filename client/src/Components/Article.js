@@ -6,28 +6,38 @@ import { saveArticle, deleteArticle } from '../redux/actions/articlesActions';
 
 class Article extends Component {
 
-	onDelete = id => {
-		this.props.deleteArticle(id)
+	onDelete = () => {
+		this.props.deleteArticle(this.props._id)
+	}
+	onSave = () => {
+		this.props.saveArticle(this.props._id);
 	}
 
 	render() {
+		const {
+			_id,
+			link,
+			title,
+			summary,
+			saved
+		} = this.props;
 		return (
-			<ListGroupItem data-_id={this.props._id}>
+			<ListGroupItem data-_id={_id}>
 				<ListGroupItemHeading>
-					<a className="article-link" href={this.props.link} target="_blank">
-						<h4 className="list-group-item-heading">{this.props.title} </h4>
+					<a className="article-link" href={link} target="_blank">
+						<h4 className="list-group-item-heading">{title} </h4>
 					</a>
 				</ListGroupItemHeading>
 				<ListGroupItemText className="article-summary">
-					<p>{this.props.summary}</p>
+					<p>{summary}</p>
 					{
-						!this.props.saved ?
+						!saved ?
 							<div>
 								<Button
 									color="primary"
 									size="sm"
 									className={`btn-save`}
-									onClick={() => this.props.saveArticle(this.props._id)}
+									onClick={this.onSave}
 								>
 									Save
 								</Button>
@@ -36,14 +46,14 @@ class Article extends Component {
 							<div>
 								<NotesModal 
 									className="notes-modal"
-									articleId={this.props._id}
+									articleId={_id}
 								/>
 								{"\t"}
 								<Button
 									color="danger"
 									size="sm"
 									className={`btn-delete`}
-									onClick={this.onDelete.bind(this, this.props._id)}
+									onClick={this.onDelete}
 								>
 									Delete
 							</Button>

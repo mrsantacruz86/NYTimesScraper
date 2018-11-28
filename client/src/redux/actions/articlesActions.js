@@ -63,10 +63,14 @@ export const scrapeArticles = () => dispatch => {
   axios.get("/api/scrape")
     .then(res => {
       console.log(res);
-      dispatch({
-        type: SCRAPE_ARTICLES,
-        payload: res.data
-      });
+      if(res.data.err){
+        dispatch(getArticles());
+      } else{
+        dispatch({
+          type: SCRAPE_ARTICLES,
+          payload: res.data
+        });
+      }
     })
     .catch(err => console.log(err));
 };

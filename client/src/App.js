@@ -5,37 +5,32 @@ import './App.css';
 import Content from './Components/Content';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
-import { Container } from 'reactstrap';
 import { getArticles } from './redux/actions/articlesActions';
 
+
 class App extends Component {
-
+  
   componentDidMount() {
-    this.props.getAllArticles();
+    this.props.getArticles();
   }
-
+  
   render() {
-    const saved = () => <Content
-      articles={this.props.articles.data.filter(item => item.saved)}
-      filter={this.props.articles.filterSaved}
-    />;
-    const unsaved = () => <Content
-      articles={this.props.articles.data.filter(item => !item.saved)}
-      filter={this.props.articles.filterSaved}
-    />;
+    const Saved = () => <Content data={this.props.articles.savedArticles} />;
+    const Unsaved = () => <Content data={this.props.articles.unsavedArticles} />;
+    // console.log(this.props.savedArticles);
+    // console.log(this.props.unsavedArticles);
     return (
-      <Container fluid className="App">
-        <Navbar />
-        <Header />
-        <Router>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Header />
           <Switch>
-            <Route exact path="/" component={unsaved} />
-            <Route exact path="/unsaved" component={unsaved} />
-            <Route exact path="/saved" component={saved} />
-            {/* <Route component={NoMatch} /> */}
+            <Route exact path="/" component={Unsaved} />
+            <Route exact path="/saved" component={Saved} />
+            <Route component={<h1>404: Page Not Found</h1>} />
           </Switch>
-        </Router>
-      </Container>
+        </div>
+      </Router>
     );
   }
 }
@@ -44,13 +39,4 @@ const mapStateToProps = (state) => {
   return { ...state };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getAllArticles: () => {
-      return dispatch(getArticles());
-    }
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, { getArticles })(App);
