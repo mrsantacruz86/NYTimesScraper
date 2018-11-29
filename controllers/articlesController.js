@@ -2,40 +2,44 @@ const scrape = require('../utils/scraper');
 const Article = require('../models/Article');
 
 module.exports = {
-  add: cb => {
+  add: (req, res) => {
     scrape(list => {
       Article.insertMany(list)
-        .then(data => cb(data))
-        .catch(err => cb(err));
+        .then(data => res.json(data))
+        .catch(err => res.status(422).json(err));
     });
   },
 
-  delete: (query, cb) => {
-    Article.findOneAndRemove(query)
-      .then(data => cb(data))
-      .catch(err => cb(err));
+  delete: (req, res) => {
+    Article
+      .findOneAndRemove({ _id: req.params.id })
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
   },
 
-  get: (query, cb) => {
-    Article.find(query)
+  getAll: (req, res) => {
+    Article
+      .find()
       .sort({ _id: -1 })
-      .then(doc => cb(doc))
-      .catch(err => cb(err));
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
   },
 
-  update: (data, cb) => {
-    Article.findOneAndUpdate(
-      { _id: data._id },
-      { $set: data },
-      { new: true })
-      .then(data => cb(data))
-      .catch(err => cb(err));
+  update: (req, res) => {
+    Article
+      .findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: req.body },
+        { new: true })
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
   },
-  populated: (id, cb) => {
-    Article.findById(id)
+  populated: (req, res) => {
+    Article
+      .findById(req.params.id)
       .populate("notes")
-      .then(article => cb(article))
-      .catch(err => cb(err));
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
   }
 
 };

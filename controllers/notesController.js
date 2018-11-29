@@ -2,36 +2,41 @@ const Note = require('../models/Note');
 const Article = require('../models/Article');
 
 module.exports = {
-	create: (data, cb) => {
-		Note.create(data)
-			.then(note => {
+	add: (req, res) => {
+		Note
+			.create(req.body)
+			.then(data => {
 				return Article.findOneAndUpdate(
-					{ _id: note._articleId },
-					{ $push: { notes: note._id } },
-					// { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+					{ _id: data._articleId },
+					{ $push: { notes: data._id } },
 					{ new: true });
 			})
-			.then(article => cb(article))
-			.catch(err => cb(err));
+			.then(data => res.json(data))
+			.catch(err => res.status(422).json(err));
 	},
 
-	delete: (query, cb) => {
-		Note.deleteMany(query)
-			.then(doc => cb(doc))
-			.catch(err => cb(err));
+	get: (req, res) => {
+		Note
+			.find(req.query)
+			.sort({ _id: -1 })
+			.then(data => res.json(data))
+			.catch(err => res.status(422).json(err));
 	},
 
-	get: (query, cb) => {
-		Note.find(query)
-		.then(note => cb(note))
-		.catch(err => cb(err));
+	update: (req, res) => {
+		Note
+			.findOneAndUpdate(
+				{ _id: req.params.id },
+				{ $set: req.body },
+				{ new: true })
+			.then(data => res.json(data))
+			.catch(err => res.status(422).json(err));
 	},
 
-	update: (data, cb) => {
-		Note.update(
-			{ _id: data._id },
-			{ $set: data })
-			.then(note => cb(note))
-			.catch(err => cb(err));
+	delete: (req, res) => {
+		Note
+			.deleteMany(req.query)
+			.then(data => res.json(data))
+			.catch(err => res.status(422).json(err));
 	}
 };

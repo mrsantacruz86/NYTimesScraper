@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(logger('dev'));
 
+// Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -21,9 +22,11 @@ app.use(routes);
 
 // Connect to the Mongo DB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI,{ useNewUrlParser: true,  autoIndex: false});
+mongoose
+  .connect(MONGODB_URI, { useNewUrlParser: true, autoIndex: false })
+  .then(() => console.log("MongoDB connected successfuly"))
+  .catch(err => console.log(err));
 
 app.listen(PORT, function () {
-  console.log(`Server listening on: http://localhost:${PORT}`);
+  console.log(`🌎\t ==> API Server listening on Port:${PORT}`);
 });
