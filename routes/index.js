@@ -23,7 +23,7 @@ router.get("/api/articles", (req, res) => {
 	});
 });
 
-router.get("/api/article/:id", (req, res) => {
+router.get("/api/articles/:id", (req, res) => {
 	articlesController.populated(
 		req.params.id,
 		data => {
