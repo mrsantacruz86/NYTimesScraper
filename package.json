@@ -25,7 +25,7 @@
     "scraper"
   ],
   "engines": {
-    "node": "11.3.0"
+    "node": "^10.3.0"
   },
   "author": "Nelson Diaz",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.3",
