@@ -11,7 +11,7 @@
     "client": "cd client && yarn start",
     "install": "cd client && yarn install",
     "build": "cd client && yarn build",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
