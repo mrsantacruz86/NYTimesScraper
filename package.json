@@ -24,6 +24,9 @@
     "mongoose",
     "scraper"
   ],
+  "engines": {
+    "node": "11.3.0"
+  },
   "author": "Nelson Diaz",
   "license": "MIT",
   "bugs": {
