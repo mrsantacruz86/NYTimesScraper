@@ -6,6 +6,8 @@ import {
   SAVE_ARTICLE,
   DELETE_ARTICLE,
   SCRAPE_ARTICLES,
+  GET_ARTICLE_DETAILS,
+  TOGGLE_ARTICLE_DETAILS
 } from "../actions/types";
 
 const initialState = {
@@ -13,7 +15,8 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorOnSave: false,
-  selectedArticle: {}
+  selectedArticle: {},
+  articleDetailModal: false
 };
 
 export default (state = initialState, action) => {
@@ -23,6 +26,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true
+      };
+
+    case TOGGLE_ARTICLE_DETAILS:
+      return {
+        ...state,
+        articleDetailModal: !state.articleDetailModal,
+        isLoading: false
       };
 
     case RECEIVE_ERROR:
@@ -43,6 +53,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
+        isLoading: false,
+        isError: false
+      };
+
+    case GET_ARTICLE_DETAILS:
+      return {
+        ...state,
+        selectedArticle: action.payload,
         isLoading: false,
         isError: false
       };

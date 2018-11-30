@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NotesModal from './NotesModal';
 import {
 	Container,
 	Row,
@@ -13,16 +14,17 @@ class Content extends Component {
 		return (
 			<Row>
 				<Container>
-					{ this.props.data.length > 0 ?
-						<h2>List of Articles</h2>:
-						<h2>There is no articles to show</h2>					
+					{this.props.data.length > 0 ?
+						<h2>List of Articles</h2> :
+						<h2>There is no articles to show</h2>
 					}
 					<ListGroup>
 						{this.props.data.map((item, i) => (
 							<Article {...item} key={i} index={i} />
 						))}
 					</ListGroup>
-				</Container>
+					<NotesModal />
+				</Container> 
 			</Row>
 		);
 	}
