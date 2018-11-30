@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
-import NotesModal from './NotesModal';
-import { saveArticle, deleteArticle } from '../redux/actions/articlesActions';
+import {
+	ListGroupItem,
+	ListGroupItemHeading,
+	ListGroupItemText,
+	Button
+} from 'reactstrap';
+import {
+	saveArticle,
+	deleteArticle,
+	getArticleDetails
+} from '../redux/actions/articlesActions';
 
 class Article extends Component {
 
@@ -11,6 +19,9 @@ class Article extends Component {
 	}
 	onSave = () => {
 		this.props.saveArticle(this.props._id);
+	}
+	toggle = () => {
+		this.props.getArticleDetails(this.props._id);
 	}
 
 	render() {
@@ -44,11 +55,14 @@ class Article extends Component {
 							</div>
 							:
 							<div>
-								<NotesModal 
-									className="notes-modal"
-									articleId={_id}
-								/>
-								{"\t"}
+								<Button
+									color="primary"
+									size="sm"
+									onClick={this.toggle}
+								>
+									Notes
+								</Button>
+								{"  "}
 								<Button
 									color="danger"
 									size="sm"
@@ -68,5 +82,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ saveArticle, deleteArticle }
+	{ saveArticle, deleteArticle, getArticleDetails }
 )(Article);

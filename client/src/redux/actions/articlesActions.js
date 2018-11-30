@@ -6,7 +6,9 @@ import {
   RECEIVE_ERROR,
   SAVE_ARTICLE,
   DELETE_ARTICLE,
-  SCRAPE_ARTICLES
+  SCRAPE_ARTICLES,
+  GET_ARTICLE_DETAILS,
+  TOGGLE_ARTICLE_DETAILS
 } from "./types";
 
 //Loading data
@@ -22,17 +24,24 @@ export const receiveError = () => {
   };
 };
 
+// Toggle Article Details Modal
+export const toggleArticleDetails = () => {
+  return {
+    type: TOGGLE_ARTICLE_DETAILS
+  };
+};
+
 // Get Articles from API
 export const getArticles = () => dispatch => {
   dispatch(isLoading());
   axios
     .get("/api/articles")
-    .then(res =>
+    .then(res => {
       dispatch({
         type: GET_ARTICLES,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err => {
       dispatch(receiveError());
       console.log(err);
@@ -40,9 +49,22 @@ export const getArticles = () => dispatch => {
 };
 
 // Get Populated articles passing the id
-// export const getPopulatedArticle = () => {
-
-// };
+export const getArticleDetails = (id) => dispatch => {
+  dispatch(isLoading());
+  axios
+    .get(`/api/articles/${id}`)
+    .then(res => {
+      dispatch({
+        type: GET_ARTICLE_DETAILS,
+        payload: res.data
+      });
+      dispatch(toggleArticleDetails());
+    })
+    .catch(err => {
+      dispatch(receiveError());
+      console.log(err);
+    });
+};
 
 //Save an article;
 export const saveArticle = (id) => dispatch => {
