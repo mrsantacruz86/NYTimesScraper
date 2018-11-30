@@ -12,7 +12,7 @@ import {
 	// Container
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { scrapeArticles } from '../redux/actions/articlesActions';
+import { scrapeArticles } from '../actions/articlesActions';
 
 
 class AppNavbar extends Component {

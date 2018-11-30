@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleArticleDetails } from '../redux/actions/articlesActions';
+import { toggleArticleDetails } from '../actions/articlesActions';
 import {
 	Button,
 	Modal,

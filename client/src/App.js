@@ -5,7 +5,7 @@ import './App.css';
 import Content from './Components/Content';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
-import { getArticles } from './redux/actions/articlesActions';
+import { getArticles } from './actions/articlesActions';
 
 
 class App extends Component {

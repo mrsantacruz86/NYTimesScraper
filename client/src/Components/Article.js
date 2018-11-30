@@ -10,7 +10,7 @@ import {
 	saveArticle,
 	deleteArticle,
 	getArticleDetails
-} from '../redux/actions/articlesActions';
+} from '../actions/articlesActions';
 
 class Article extends Component {
 
