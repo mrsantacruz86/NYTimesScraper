@@ -25,7 +25,8 @@ export const receiveError = () => {
 // Get Articles from API
 export const getArticles = () => dispatch => {
   dispatch(isLoading());
-  axios.get("/api/articles")
+  axios
+    .get("/api/articles")
     .then(res =>
       dispatch({
         type: GET_ARTICLES,
@@ -46,7 +47,8 @@ export const getArticles = () => dispatch => {
 //Save an article;
 export const saveArticle = (id) => dispatch => {
   dispatch(isLoading());
-  axios.put("/api/articles", { _id: id, saved: true })
+  axios
+    .put(`/api/articles/${id}`, { saved: true })
     .then(res => {
       dispatch({
         type: SAVE_ARTICLE,
@@ -59,12 +61,13 @@ export const saveArticle = (id) => dispatch => {
 // Actions to scrape articles and add them to the DB
 export const scrapeArticles = () => dispatch => {
   dispatch(isLoading());
-  axios.get("/api/scrape")
+  axios
+    .get("/api/articles/scrape")
     .then(res => {
       // console.log(res);
-      if(res.data.err){
+      if (res.data.err) {
         dispatch(getArticles());
-      } else{
+      } else {
         dispatch({
           type: SCRAPE_ARTICLES,
           payload: res.data
@@ -78,7 +81,7 @@ export const scrapeArticles = () => dispatch => {
 export const deleteArticle = (id) => dispatch => {
   console.log(id);
   dispatch(isLoading());
-  axios.delete("/api/articles", { _id: id })
+  axios.delete(`/api/articles/${id}`)
     .then(response => {
       dispatch({
         type: DELETE_ARTICLE,
