@@ -14,7 +14,9 @@ import {
 	Form,
 	FormGroup,
 	Label,
-	Input
+	Input,
+	Row,
+	Col
 } from 'reactstrap';
 
 class NotesModal extends Component {
@@ -40,13 +42,17 @@ class NotesModal extends Component {
 				<Modal size="lg" isOpen={this.props.articles.articleDetailModal} toggle={this.toggle} className="notes-modal">
 					<ModalHeader toggle={this.toggle}>Article: {_id}</ModalHeader>
 					<ModalBody>
-						<Form inline>
-							<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-								<Label for="exampleEmail" className="mr-sm-2">Email</Label>
-								<Input type="email" name="email" id="exampleEmail" placeholder="something@idk.cool" />
-							</FormGroup>
-							<Button>Submit</Button>
-						</Form>
+						<Row>
+							<Col>
+								<Form inline>
+									<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+										<Label for="exampleEmail" className="mr-sm-2">Email</Label>
+										<Input type="text" name="email" id="exampleEmail" placeholder="something@idk.cool" />
+									</FormGroup>
+									<Button>Submit</Button>
+								</Form>
+							</Col>
+						</Row>
 
 						<ListGroup>
 							{notes && notes.length > 0 ?
