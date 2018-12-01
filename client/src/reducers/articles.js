@@ -5,18 +5,13 @@ import {
   RECEIVE_ERROR,
   SAVE_ARTICLE,
   DELETE_ARTICLE,
-  SCRAPE_ARTICLES,
-  GET_ARTICLE_DETAILS,
-  TOGGLE_ARTICLE_DETAILS
+  SCRAPE_ARTICLES
 } from "../actions/types";
 
 const initialState = {
   data: [],
   isLoading: false,
-  isError: false,
-  errorOnSave: false,
-  selectedArticle: {},
-  articleDetailModal: false
+  isError: false
 };
 
 export default (state = initialState, action) => {
@@ -26,13 +21,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true
-      };
-
-    case TOGGLE_ARTICLE_DETAILS:
-      return {
-        ...state,
-        articleDetailModal: !state.articleDetailModal,
-        isLoading: false
       };
 
     case RECEIVE_ERROR:
@@ -53,14 +41,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
-        isLoading: false,
-        isError: false
-      };
-
-    case GET_ARTICLE_DETAILS:
-      return {
-        ...state,
-        selectedArticle: action.payload,
         isLoading: false,
         isError: false
       };
@@ -91,4 +71,4 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

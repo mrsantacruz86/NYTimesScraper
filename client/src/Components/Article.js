@@ -9,8 +9,8 @@ import {
 import {
 	saveArticle,
 	deleteArticle,
-	getArticleDetails
 } from '../actions/articlesActions';
+import {addNote, getNotesByArticle} from '../actions/notesActions'
 
 class Article extends Component {
 
@@ -21,7 +21,7 @@ class Article extends Component {
 		this.props.saveArticle(this.props._id);
 	}
 	toggle = () => {
-		this.props.getArticleDetails(this.props._id);
+		this.props.getNotesByArticle(this.props._id);
 	}
 
 	render() {
@@ -82,5 +82,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ saveArticle, deleteArticle, getArticleDetails }
+	{ saveArticle, deleteArticle, getNotesByArticle }
 )(Article);

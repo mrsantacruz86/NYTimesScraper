@@ -17,5 +17,3 @@ router
 	.delete(articlesController.delete);
 
 module.exports = router;
-
-module.exports = router;

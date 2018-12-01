@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleArticleDetails } from '../actions/articlesActions';
+import { toggleNotesModal } from '../actions/notesActions';
 import {
 	Button,
 	Modal,
@@ -24,7 +24,7 @@ class NotesModal extends Component {
 		text: ""
 	}
 	toggle = () => {
-		this.props.toggleArticleDetails();
+		this.props.toggleNotesModal();
 	}
 	onChange = (e) => {
 		e.preventDefault();
@@ -40,10 +40,10 @@ class NotesModal extends Component {
 	render() {
 		const {
 			_id, notes, link, title, summary, saved
-		} = this.props.articles.selectedArticle;
+		} = this.props.notes.selectedArticle;
 		return (
 			<div>
-				<Modal size="lg" isOpen={this.props.articles.articleDetailModal} toggle={this.toggle} className="notes-modal">
+				<Modal size="lg" isOpen={this.props.notes.modal} toggle={this.toggle} className="notes-modal">
 					<ModalHeader toggle={this.toggle}>
 						<Row>
 							<Col>
@@ -106,5 +106,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ toggleArticleDetails }
+	{ toggleNotesModal }
 )(NotesModal);
