@@ -10,7 +10,7 @@ import {
 	saveArticle,
 	deleteArticle,
 } from '../actions/articlesActions';
-import {addNote, getNotesByArticle} from '../actions/notesActions'
+import {getNotesByArticle} from '../actions/notesActions'
 
 class Article extends Component {
 

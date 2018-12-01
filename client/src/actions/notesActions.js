@@ -38,8 +38,12 @@ export const getNotesByArticle = (id) => dispatch => {
 //Add notes
 export const addNote = (note) => dispatch => {
 	axios.post("/api/notes", note)
-		.then(response => {
+		.then(res => {
 			console.log("Saved");
+			dispatch({
+				type: ADD_NOTE,
+				payload: res.data
+			});
 		})
 		.catch(err => console.log(err));
 };

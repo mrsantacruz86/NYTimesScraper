@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleNotesModal } from '../actions/notesActions';
+import { addNote, toggleNotesModal } from '../actions/notesActions';
 import {
 	Button,
 	Modal,
@@ -34,6 +34,11 @@ class NotesModal extends Component {
 	}
 	onSubmit = (e) => {
 		e.preventDefault();
+		const note = {
+			_articleId: this.props.notes.selectedArticle._id,
+			text: this.state. text
+		}
+		this.props.addNote(note);
 		this.setState({text:""});
 	}
 
@@ -106,5 +111,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ toggleNotesModal }
+	{ toggleNotesModal, addNote }
 )(NotesModal);
