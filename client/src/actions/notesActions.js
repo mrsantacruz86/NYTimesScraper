@@ -2,8 +2,7 @@
 import axios from 'axios';
 import {
 	ADD_NOTE,
-	IS_LOADING,
-	RECEIVE_ERROR,
+	DELETE_NOTE,
 	GET_NOTES_BY_ARTICLE,
 	TOGGLE_NOTES_MODAL
 } from "./types";
@@ -27,7 +26,6 @@ export const getNotesByArticle = (id) => dispatch => {
 				type: GET_NOTES_BY_ARTICLE,
 				payload: res.data
 			});
-			dispatch(toggleNotesModal());
 		})
 		.catch(err => {
 			dispatch(receiveError());

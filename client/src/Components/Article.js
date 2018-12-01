@@ -10,7 +10,7 @@ import {
 	saveArticle,
 	deleteArticle,
 } from '../actions/articlesActions';
-import {getNotesByArticle} from '../actions/notesActions'
+import { getNotesByArticle, toggleNotesModal } from '../actions/notesActions'
 
 class Article extends Component {
 
@@ -20,7 +20,8 @@ class Article extends Component {
 	onSave = () => {
 		this.props.saveArticle(this.props._id);
 	}
-	toggle = () => {
+	toggleNotes = () => {
+		this.props.toggleNotesModal();
 		this.props.getNotesByArticle(this.props._id);
 	}
 
@@ -46,6 +47,7 @@ class Article extends Component {
 							<div>
 								<Button
 									color="primary"
+									outline
 									size="sm"
 									className={`btn-save`}
 									onClick={this.onSave}
@@ -57,14 +59,16 @@ class Article extends Component {
 							<div>
 								<Button
 									color="primary"
+									outline
 									size="sm"
-									onClick={this.toggle}
+									onClick={this.toggleNotes}
 								>
 									Notes
 								</Button>
 								{"  "}
 								<Button
 									color="danger"
+									outline
 									size="sm"
 									className={`btn-delete`}
 									onClick={this.onDelete}
@@ -82,5 +86,10 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ saveArticle, deleteArticle, getNotesByArticle }
+	{
+		saveArticle,
+		deleteArticle,
+		getNotesByArticle,
+		toggleNotesModal
+	}
 )(Article);

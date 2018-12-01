@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addNote, toggleNotesModal } from '../actions/notesActions';
+import moment from 'moment';
 import {
 	Button,
 	Modal,
@@ -34,21 +35,26 @@ class NotesModal extends Component {
 	}
 	onSubmit = (e) => {
 		e.preventDefault();
-		const note = {
-			_articleId: this.props.notes.selectedArticle._id,
-			text: this.state. text
+		if (this.state.text && this.state.text.length > 0) {
+			const note = {
+				_articleId: this.props.notes.selectedArticle._id,
+				text: this.state.text
+			}
+			this.props.addNote(note);
+			this.setState({ text: "" });
 		}
-		this.props.addNote(note);
-		this.setState({text:""});
 	}
 
 	render() {
-		const {
-			_id, notes, link, title, summary, saved
-		} = this.props.notes.selectedArticle;
+		const {_id, notes} = this.props.notes.selectedArticle;
 		return (
 			<div>
-				<Modal size="lg" isOpen={this.props.notes.modal} toggle={this.toggle} className="notes-modal">
+				<Modal
+					size="lg"
+					isOpen={this.props.notes.modal}
+					toggle={this.toggle}
+					className="notes-modal"
+				>
 					<ModalHeader toggle={this.toggle}>
 						<Row>
 							<Col>
@@ -62,13 +68,19 @@ class NotesModal extends Component {
 								<Col>
 									<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 										<Label for="noteInput" hidden >Note</Label>
-										<Input type="textarea" name="text" id="noteInput" placeholder="Add a note here..." onChange={this.onChange} value={this.state.text} />
+										<Input type="textarea"
+											name="text"
+											id="noteInput"
+											placeholder="Add a note here..."
+											onChange={this.onChange}
+											value={this.state.text}
+										/>
 									</FormGroup>
 								</Col>
 							</Row>
 							<Row>
-								<Col style={{marginTop: 10}}>
-									<Button>Add Note</Button>
+								<Col style={{ marginTop: 10 }}>
+									<Button color="success" outline>Add Note</Button>
 								</Col>
 							</Row>
 						</Form>
@@ -77,10 +89,10 @@ class NotesModal extends Component {
 							<Col>
 								<ListGroup>
 									{notes && notes.length > 0 ?
-										notes.map(note =>
-											<ListGroupItem>
+										notes.map((note,index) =>
+											<ListGroupItem key={index}>
 												<ListGroupItemHeading>
-													{note.date}
+													{moment(note.date).format("YYYY-MM-DD hh:mm:ss")}
 												</ListGroupItemHeading>
 												<ListGroupItemText>
 													{note.text}
@@ -96,7 +108,8 @@ class NotesModal extends Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button
-							color="secondary"
+							color="dark"
+							outline
 							onClick={this.toggle}
 						>
 							Cancel
