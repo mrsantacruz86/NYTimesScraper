@@ -10,19 +10,19 @@ import {
 	saveArticle,
 	deleteArticle,
 } from '../actions/articlesActions';
-import { getNotesByArticle, toggleNotesModal } from '../actions/notesActions'
+import { getNotes, toggleNotesModal } from '../actions/notesActions'
 
 class Article extends Component {
 
 	onDelete = () => {
-		this.props.deleteArticle(this.props._id)
+		this.props.deleteArticle(this.props.currentArticle._id)
 	}
 	onSave = () => {
-		this.props.saveArticle(this.props._id);
+		this.props.saveArticle(this.props.currentArticle._id);
 	}
 	toggleNotes = () => {
 		this.props.toggleNotesModal();
-		this.props.getNotesByArticle(this.props._id);
+		this.props.getNotes(this.props.currentArticle);
 	}
 
 	render() {
@@ -31,8 +31,8 @@ class Article extends Component {
 			link,
 			title,
 			summary,
-			saved
-		} = this.props;
+			saved,
+		} = this.props.currentArticle;
 		return (
 			<ListGroupItem data-_id={_id}>
 				<ListGroupItemHeading>
@@ -89,7 +89,7 @@ export default connect(
 	{
 		saveArticle,
 		deleteArticle,
-		getNotesByArticle,
-		toggleNotesModal
+		toggleNotesModal,
+		getNotes
 	}
 )(Article);

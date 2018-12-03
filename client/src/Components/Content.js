@@ -20,7 +20,7 @@ class Content extends Component {
 					}
 					<ListGroup>
 						{this.props.data.map((item, i) => (
-							<Article {...item} key={i} index={i} />
+							<Article currentArticle={item} key={i} index={i} />
 						))}
 					</ListGroup>
 					<NotesModal />

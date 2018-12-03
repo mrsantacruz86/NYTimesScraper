@@ -5,13 +5,13 @@ module.exports = {
 	add: (req, res) => {
 		Note
 			.create(req.body)
+			.then(data => res.json(data))
 			.then(data => {
-				return Article.findOneAndUpdate(
+				Article.findOneAndUpdate(
 					{ _id: data._articleId },
 					{ $push: { notes: data._id } },
 					{ new: true });
 			})
-			.then(data => res.json(data))
 			.catch(err => res.status(422).json(err));
 	},
 
@@ -35,7 +35,7 @@ module.exports = {
 
 	delete: (req, res) => {
 		Note
-			.deleteMany(req.query)
+			.deleteOne({ _id: req.params.id })
 			.then(data => res.json(data))
 			.catch(err => res.status(422).json(err));
 	}

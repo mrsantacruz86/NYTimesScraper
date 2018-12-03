@@ -7,7 +7,6 @@ import {
   SAVE_ARTICLE,
   DELETE_ARTICLE,
   SCRAPE_ARTICLES,
-  TOGGLE_NOTES_MODAL
 } from "./types";
 
 //Loading data
@@ -60,7 +59,6 @@ export const scrapeArticles = () => dispatch => {
   axios
     .get("/api/articles/scrape")
     .then(res => {
-      // console.log(res);
       if (res.data.err) {
         dispatch(getArticles());
       } else {

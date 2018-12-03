@@ -1,16 +1,17 @@
 /* eslint-disable no-case-declarations */
 import {
-  IS_LOADING,
-  RECEIVE_ERROR,
   ADD_NOTE,
   DELETE_NOTE,
-  GET_NOTES_BY_ARTICLE,
+  GET_NOTES,
   TOGGLE_NOTES_MODAL
 } from "../actions/types";
 
 const initialState = {
   selectedArticle: {},
-  modal: false
+  notesList: [],
+  modal: false,
+  isLoading: false,
+  isError: false
 };
 
 export default (state = initialState, action) => {
@@ -23,31 +24,29 @@ export default (state = initialState, action) => {
         isLoading: false
       };
 
-    case GET_NOTES_BY_ARTICLE:
+    case GET_NOTES:
       return {
         ...state,
-        selectedArticle: action.payload,
+        notesList: action.payload.notesList,
+        selectedArticle: action.payload.article,
         isLoading: false,
         isError: false
       };
 
     case ADD_NOTE:
-      const n = [action.payload, ...state.selectedArticle.notes];
-        return {
-          ...state,
-          selectedArticle:{...state.selectedArticle, notes:n}
+      return {
+        ...state,
+        notesList: [action.payload, ...state.notesList]
       };
 
     case DELETE_NOTE:
-      const filtered = state.selectedArticle.notes.filter(
-        note => note._id !== action.payload._id
-      );
       return {
         ...state,
-        selectedArticle:{...state.selectedArticle, notes: filtered}
+        notesList: state.notesList.filter(
+          note => note._id !== action.payload._id)
       };
 
     default:
       return state;
   }
-}
+};

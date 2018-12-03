@@ -9,7 +9,7 @@ export const SAVE_ARTICLE = 'SAVE';
 export const DELETE_ARTICLE = "DELETE_ARTICLE";
 
 // Notes actions
-export const GET_NOTES_BY_ARTICLE = 'GET_NOTES_BY_ARTICLE';
+export const GET_NOTES = 'GET_NOTES';
 export const TOGGLE_NOTES_MODAL = 'TOGGLE_NOTES_MODAL';
 export const ADD_NOTE = "ADD_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";

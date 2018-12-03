@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNote, toggleNotesModal } from '../actions/notesActions';
+import { addNote, toggleNotesModal, deleteNote } from '../actions/notesActions';
 import moment from 'moment';
 import {
 	Button,
@@ -24,6 +24,9 @@ class NotesModal extends Component {
 	state = {
 		text: ""
 	}
+	componentDidMount = () => {
+
+	}
 	toggle = () => {
 		this.props.toggleNotesModal();
 	}
@@ -44,9 +47,13 @@ class NotesModal extends Component {
 			this.setState({ text: "" });
 		}
 	}
-
+	onDelete = (id) => {
+		this.props.deleteNote(id);
+	}
+ 
 	render() {
-		const {_id, notes} = this.props.notes.selectedArticle;
+		const notes  = this.props.notes.notesList;
+		const article  = this.props.notes.selectedArticle;
 		return (
 			<div>
 				<Modal
@@ -58,7 +65,7 @@ class NotesModal extends Component {
 					<ModalHeader toggle={this.toggle}>
 						<Row>
 							<Col>
-								Article: {_id}
+								Article: {article._id}
 							</Col>
 						</Row>
 					</ModalHeader>
@@ -89,10 +96,17 @@ class NotesModal extends Component {
 							<Col>
 								<ListGroup>
 									{notes && notes.length > 0 ?
-										notes.map((note,index) =>
+										notes.map((note, index) =>
 											<ListGroupItem key={index}>
 												<ListGroupItemHeading>
-													{moment(note.date).format("YYYY-MM-DD hh:mm:ss")}
+													<Button
+														outline
+														color="danger"
+														onClick={this.onDelete.bind(this,note._id)}
+													>
+														<i className="fas fa-trash-alt"></i>
+													</Button>
+													{moment(note.date).format("MM/DD/YYYY hh:mm:ss")}
 												</ListGroupItemHeading>
 												<ListGroupItemText>
 													{note.text}
@@ -124,5 +138,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
 	mapStateToProps,
-	{ toggleNotesModal, addNote }
+	{ toggleNotesModal, addNote, deleteNote }
 )(NotesModal);

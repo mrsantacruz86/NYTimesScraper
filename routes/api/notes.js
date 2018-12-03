@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { articlesController, notesController } = require('../../controllers');
+const { notesController } = require('../../controllers');
 
 // Notes Routes
 
@@ -13,7 +13,7 @@ router
 // @route	api/notes/id
 router
 	.route("/:id")
-	.put(articlesController.update)
-	.delete(articlesController.delete);
+	.put(notesController.update)
+	.delete(notesController.delete);
 
 module.exports = router;
