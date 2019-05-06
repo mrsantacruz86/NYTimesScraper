@@ -22,6 +22,6 @@ body {
   background-size: cover;
 }
 .bg1{
-  background-image: url("./assets/news-page.jpg");
+  background-image: url("./news-page.jpg");
   min-height: 50%;
 }
